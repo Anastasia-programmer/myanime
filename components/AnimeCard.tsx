@@ -25,7 +25,7 @@ export default function AnimeCard({ anime }: AnimeCardProps) {
 
   return (
     <Link href={`/anime/${anime.id}`} className="block group">
-      <div className="relative overflow-hidden rounded-xl bg-[#020617] border border-white/5 shadow-lg transition-all duration-300 hover:shadow-[0_0_30px_rgba(59,130,246,0.2)] hover:scale-[1.02] hover:border-blue-500/50">
+      <div className="  w-10/12 sm:w-auto relative overflow-hidden  rounded-xl bg-[#020617] border border-white/5 shadow-lg transition-all duration-300 hover:shadow-[0_0_30px_rgba(59,130,246,0.2)] hover:scale-[1.02] hover:border-blue-500/50">
         
         {/* Image Section */}
         <div className="relative aspect-[2/3] w-full overflow-hidden">

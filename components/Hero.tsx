@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 import Link from 'next/link';
 import { TextAnimate } from './ui/text-animate';
 import { ShimmerButton } from './ui/shimmer-button';
@@ -10,22 +9,7 @@ import { motion } from 'motion/react';
 
 export default function Hero() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background Image */}
-      <div className="absolute inset-0 z-0">
-        <Image
-          src="/cover5.jpg"
-          alt="Anime Discovery Background"
-          fill
-          className="object-cover"
-          priority
-          quality={90}
-        />
-        {/* Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/80" />
-        <div className="absolute inset-0 bg-gradient-to-r from-purple-900/20 via-transparent to-pink-900/20" />
-      </div>
-
+    <section className="relative min-h-screen flex items-center justify-center">
       {/* Content */}
       <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <div className="space-y-8 md:space-y-12">
@@ -117,6 +101,8 @@ export default function Hero() {
           </motion.div>
         </div>
       </div>
+
+      
 
      
     </section>

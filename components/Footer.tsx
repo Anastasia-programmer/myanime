@@ -2,7 +2,7 @@ import { Github, Twitter, MessageSquare } from "lucide-react"
 
 const Footer = () => {
   return (
-    <footer className="w-full bg-[#020617] border-t border-white/5 py-10 text-white">
+    <footer className="relative z-10 w-full bg-[#020617]/80 backdrop-blur-xl border-t border-white/10 py-10 text-white">
       <div className="container mx-auto px-8 md:px-16 flex flex-col md:flex-row justify-between items-center gap-8">
         
         {/* Logo & Slogan */}

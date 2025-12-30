@@ -1,4 +1,4 @@
-import AnimeCard from './AnimeCard';
+import AnimeCard from '@/components/AnimeCard';
 import { Search } from "lucide-react"
 
 interface Anime {
@@ -44,19 +44,13 @@ export default function AnimeGrid({ animeList }: AnimeGridProps) {
           <p className="max-w-70 text-sm font-medium leading-relaxed text-blue-100/60 uppercase tracking-widest">
             We could not find any anime matching your journey.
           </p>
-  
-          <div className="pt-6">
-            <button className="px-6 py-2 rounded-full border border-white/10 bg-white/5 text-[10px] font-bold uppercase tracking-[0.3em] text-white hover:bg-white/10 hover:border-cyan-500/50 transition-all duration-300">
-              Clear Filters
-            </button>
-          </div>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+    <div className="grid grid-cols-1  gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
       {animeList.map((anime) => (
         <AnimeCard key={anime.id} anime={anime} />
       ))}
