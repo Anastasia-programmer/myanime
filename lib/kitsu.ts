@@ -30,7 +30,7 @@ export async function getAnimeList(filters: AnimeFilters = {}) {
 
     url.searchParams.append(
         'page[limit]',
-        String(filters.limit || 20)
+        String(filters.limit || 20 )
     );
 
     const res = await fetch(url.toString(), {
@@ -54,7 +54,7 @@ export async function getAnimeById(id: string) {
     return res.json();
 }
 export async function getAnimeCharacters(animeId: string) {
-    const url = `${BASE_URL}/anime/${animeId}/anime-characters?include=character&page[limit]=12`;
+    const url = `${BASE_URL}/anime/${animeId}/anime-characters?include=character&page[limit]=18`;
 
     const res = await fetch(url, {
         next: { revalidate: 3600 }
