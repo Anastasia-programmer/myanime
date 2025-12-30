@@ -103,9 +103,9 @@ export default function Hero() {
 
             <Link href="/trending">
               <ShimmerButton
-                shimmerColor="#f472b6"
+                shimmerColor="#ffffff"
                 shimmerSize="0.1em"
-                shimmerDuration="2.5s"
+                shimmerDuration="2s"
                 borderRadius="12px"
                 background="rgba(236, 72, 153, 0.8)"
                 className="px-8 py-4 text-lg font-semibold backdrop-blur-sm hover:scale-105 transition-transform duration-300"
@@ -118,14 +118,7 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Decorative Elements */}
-      <div className="absolute bottom-20 left-0 right-0 z-10 flex justify-center">
-        <div className="animate-bounce">
-          <div className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center">
-            <div className="w-1 h-3 bg-white/50 rounded-full mt-2 animate-pulse"></div>
-          </div>
-        </div>
-      </div>
+     
     </section>
   );
 }
