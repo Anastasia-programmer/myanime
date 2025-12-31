@@ -14,7 +14,7 @@ export default function CategoryRow({ title, animeList }: CategoryRowProps) {
   const [expanded, setExpanded] = useState(false);
   
   // Initially show 6, max 18 (which should be the length of animeList provided)
-  const displayedAnime = expanded ? animeList.slice(0, 18) : animeList.slice(0, 6);
+  const displayedAnime = expanded ? animeList.slice(0, 18) :animeList.slice(0, 6);
   const hasMore = animeList.length > 6;
 
   return (
@@ -23,7 +23,7 @@ export default function CategoryRow({ title, animeList }: CategoryRowProps) {
         <h3 className="text-2xl font-bold text-white drop-shadow-md">{title}</h3>
       </div>
       
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 2xl:grid-cols-6">
         {displayedAnime.map((anime) => (
           <AnimeCard key={anime.id} anime={anime} />
         ))}

@@ -1,13 +1,9 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import { getAnimeById, getAnimeCharacters } from '@/lib/kitsu';
 import { notFound } from 'next/navigation';
 import AnimeCharacters from '@/components/AnimeCharacters';
-// Added icons for metadata
-import { 
-  Star, Play, Plus, Heart, Share2, Tv, 
-  Calendar, Clock, ShieldAlert, Activity, 
-  Layers, Info 
-} from 'lucide-react';
+import { Play, Bell, MoreHorizontal, User, Star } from 'lucide-react';
 
 interface PageProps {
   params: Promise<{
@@ -17,14 +13,15 @@ interface PageProps {
 
 export default async function AnimeDetailPage({ params }: PageProps) {
   const { id } = await params;
-  
+
   let anime;
   let characters;
 
   try {
     const animeResponse = await getAnimeById(id);
     anime = animeResponse.data;
-    
+
+    // Fetch characters but we will render them differently
     const charactersResponse = await getAnimeCharacters(id);
     characters = charactersResponse;
   } catch (error) {
@@ -40,15 +37,12 @@ export default async function AnimeDetailPage({ params }: PageProps) {
     canonicalTitle,
     posterImage,
     synopsis,
-    averageRating,
     status,
     showType,
     episodeCount,
     episodeLength,
-    startDate,
-    endDate,
-    ageRating,
-    ageRatingGuide,
+    titles,
+    averageRating,
     youtubeVideoId
   } = anime.attributes;
 
@@ -56,150 +50,184 @@ export default async function AnimeDetailPage({ params }: PageProps) {
     (item: any) => item.type === 'characters'
   );
 
-  const score = averageRating ? (parseFloat(averageRating) / 10).toFixed(2) : null;
-  const starRating = averageRating ? (parseFloat(averageRating) / 10 / 2).toFixed(1) : null;
-
-  const formatDate = (dateString?: string) => {
-    if (!dateString) return 'N/A';
-    try {
-      const date = new Date(dateString);
-      return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-    } catch {
-      return dateString;
-    }
-  };
-
   return (
-    <div className=" mt-20 relative min-h-screen bg-[#020617]">
-      {/* BACKGROUND with cinematic blur */}
-      <div className="fixed inset-0 z-0 overflow-hidden">
-        {posterImage?.large ? (
-          <>
-             <Image
-                     src={"/cv7.jpg"}
-                     alt="Anime Discovery Background"
-                     fill
-                     className="object-cover"
-                     priority
-                     quality={90}
-                   />
-            <div className="absolute inset-0 backdrop-blur-[5px]" />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#020617] via-[#020617]/20 to-black/10" />
-          </>
-        ) : (
-          <div className="absolute inset-0 bg-[#020617]" />
+    <div className="mt-20 relative min-h-screen bg-[#111] text-white overflow-x-hidden font-sans">
+
+      {/* 1. Blurred Background Layer */}
+      <div className="fixed inset-0 z-0">
+        {posterImage?.large && (
+          <Image
+            src={posterImage.large}
+            alt="Background"
+            fill
+            className="object-cover  "
+            priority
+            quality={50}
+          />
         )}
+        {/* Dark overlay to ensure text contrast */}
+        <div className="absolute inset-0 bg-black/75" />
+        {/* Gradient fade from top */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-transparent to-black/80" />
       </div>
 
-      <div className="relative z-10">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
-          <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
-            
-            {/* Sidebar */}
-            <aside className="flex-shrink-0 lg:w-72">
-              <div className="bg-black/40 backdrop-blur-2xl rounded-2xl border border-white/10 p-6 sticky top-8 shadow-2xl">
-                <div className="mb-6">
-                  {posterImage?.large && (
-                    <div className="relative w-full aspect-[2/3] rounded-xl overflow-hidden shadow-2xl border border-white/10">
-                      <Image src={posterImage.large} alt={canonicalTitle} fill className="object-cover" priority />
-                    </div>
+    
+
+      {/* 3. Main Content Area */}
+      <div className="relative z-10 container mx-auto px-4 lg:px-12 py-8 mt-4">
+        <div className="flex flex-col lg:flex-row gap-10">
+
+          {/* Left: Poster */}
+          <div className="flex-shrink-0 mx-auto lg:mx-0 w-[280px] sm:w-[320px] lg:w-[380px]">
+            {posterImage?.large ? (
+              <div className="relative aspect-[2/3] rounded-lg overflow-hidden shadow-[0_0_40px_rgba(0,0,0,0.5)] border-2 border-white/5">
+                <Image
+                  src={posterImage.large}
+                  alt={canonicalTitle}
+                  fill
+                  className="object-cover"
+                  priority
+                />
+                {/* Poster overlay gradient */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-60" />
+
+                {/* Japanese Title Overlay if available (simulated) */}
+                <div className="absolute bottom-4 left-0 right-0 px-4 text-center">
+                  {titles?.ja_jp && (
+                    <h2 className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-t from-white to-white/70 drop-shadow-md text-stroke font-outline-2">
+                      {titles.ja_jp}
+                    </h2>
                   )}
                 </div>
-
-                {score && (
-                  <div className="mb-6 pb-6 border-b border-white/5">
-                    <div className="flex items-center gap-3 mb-2">
-                      <span className="text-4xl font-black text-white tracking-tighter">{score}</span>
-                      <span className="text-blue-400 font-bold uppercase text-[9px] tracking-widest">Global Score</span>
-                    </div>
-                    <div className="flex items-center gap-1">
-                      {[...Array(5)].map((_, i) => (
-                        <Star key={i} className={`w-3.5 h-3.5 ${i < Math.round(parseFloat(starRating || '0')) ? 'fill-blue-500 text-blue-500 drop-shadow-[0_0_8px_rgba(59,130,246,0.6)]' : 'fill-none text-white/10'}`} />
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                {/* Metadata with Icons */}
-                <div className="space-y-6">
-                   <div className="flex items-start gap-3">
-                      <Activity className="w-4 h-4 text-blue-400 mt-1" />
-                      <div>
-                        <span className="text-white/40 block text-[9px] uppercase font-bold tracking-[0.2em] mb-0.5">Status</span>
-                        <span className="text-sm text-white font-medium capitalize">{status || 'N/A'}</span>
-                      </div>
-                   </div>
-
-                   <div className="flex items-start gap-3">
-                      <Tv className="w-4 h-4 text-blue-400 mt-1" />
-                      <div>
-                        <span className="text-white/40 block text-[9px] uppercase font-bold tracking-[0.2em] mb-0.5">Format</span>
-                        <span className="text-sm text-white font-medium">{showType || 'N/A'}</span>
-                      </div>
-                   </div>
-
-                   <div className="flex items-start gap-3">
-                      <Layers className="w-4 h-4 text-blue-400 mt-1" />
-                      <div>
-                        <span className="text-white/40 block text-[9px] uppercase font-bold tracking-[0.2em] mb-0.5">Episodes</span>
-                        <span className="text-sm text-white font-medium">{episodeCount || 'Ongoing'}</span>
-                      </div>
-                   </div>
-
-                   <div className="flex items-start gap-3">
-                      <Calendar className="w-4 h-4 text-blue-400 mt-1" />
-                      <div>
-                        <span className="text-white/40 block text-[9px] uppercase font-bold tracking-[0.2em] mb-0.5">Aired</span>
-                        <span className="text-sm text-white font-medium">{formatDate(startDate)}</span>
-                      </div>
-                   </div>
-
-                   <div className="flex items-start gap-3">
-                      <ShieldAlert className="w-4 h-4 text-blue-400 mt-1" />
-                      <div>
-                        <span className="text-white/40 block text-[9px] uppercase font-bold tracking-[0.2em] mb-0.5">Age Rating</span>
-                        <span className="text-sm text-white font-medium">{ageRating || 'N/A'}</span>
-                      </div>
-                   </div>
-                </div>
               </div>
-            </aside>
+            ) : (
+              <div className="w-full h-full bg-gray-800 rounded-lg animate-pulse" />
+            )}
 
-            {/* Main Content */}
-            <main className="flex-1 min-w-0">
-              <div className="bg-black/30 backdrop-blur-3xl rounded-3xl border border-white/10 p-6 md:p-10 shadow-2xl">
-                
-                <h1 className="text-4xl md:text-6xl font-black text-white mb-6 tracking-tighter uppercase italic leading-none">
-                  {canonicalTitle}
-                </h1>
 
-                {/* Actions */}
-                <div className="flex flex-wrap gap-3 mb-10">
-        
-                  <button  className="flex items-center gap-2 px-8 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-full font-bold uppercase text-[10px] tracking-widest transition-all shadow-[0_0_20px_rgba(37,99,235,0.4)] " >
-                    <Play className="w-4 h-4 fill-current" /> Watch Trailer
-                  </button>
-                </div>
 
-                {/* Synopsis */}
-                {synopsis && (
-                  <div className="mb-12">
-                    <div className="flex items-center gap-2 mb-4">
-                      <Info className="w-4 h-4 text-blue-400" />
-                      <h2 className="text-[10px] uppercase tracking-[0.4em] font-black text-blue-400">Database Synopsis</h2>
+
+          </div>
+
+          {/* Right: Info & Actions */}
+          <div className="flex-1 min-w-0 pt-4">
+            {/* Breadcrumbs */}
+            <div className="flex items-center gap-2 text-sm text-gray-400 mb-4">
+              <span>Home</span>
+              <span className="text-gray-600">|</span>
+              <span>{showType === 'TV' ? 'TV Series' : showType}</span>
+            </div>
+
+            {/* Title */}
+            <h1 className="text-4xl lg:text-5xl font-bold text-white mb-4 leading-tight">
+              {canonicalTitle}
+              {/* Add localized title logic if needed, e.g. (S1) */}
+            </h1>
+
+            {/* Meta Tags Row */}
+            <div className="flex items-center gap-4 text-sm text-gray-300 mb-6 font-medium">
+              {episodeCount && <span>EP {episodeCount}</span>}
+              {episodeCount && <span className="w-1 h-1 rounded-full bg-gray-500" />}
+              {episodeLength && <span>{episodeLength}m</span>}
+
+              {/* Rating */}
+              {averageRating && (
+                <>
+                  <span className="w-1 h-1 rounded-full bg-gray-500" />
+                  <div className="flex items-center gap-1 text-[#FBBF24]">
+                    <Star className="w-3.5 h-3.5 fill-current" />
+                    <span>{(parseFloat(averageRating) / 10).toFixed(1)}</span>
+                  </div>
+                </>
+              )}
+
+              {/* Badges */}
+              <div className="flex gap-2 ml-2">
+                <span className="bg-[#4ADE80] text-black text-[10px] font-bold px-1.5 py-0.5 rounded-sm">SUB</span>
+                <span className="bg-[#4ADE80] text-black text-[10px] font-bold px-1.5 py-0.5 rounded-sm">HD</span>
+                <span className="bg-[#4ADE80] text-black text-[10px] font-bold px-1.5 py-0.5 rounded-sm">DUB</span>
+              </div>
+            </div>
+
+            {/* Synopsis */}
+            <p className="text-gray-300 leading-relaxed mb-8 max-w-4xl ">
+              {synopsis || "No synopsis available."}
+            </p>
+
+            {/* Continue Watching / Action Card */}
+            <div className="bg-[#1A1A1A]/80 backdrop-blur-sm rounded-xl p-6 border border-white/5 w-auto mb-12">
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center gap-4">
+                  {youtubeVideoId ? (
+                    <Link
+                      href={`https://www.youtube.com/watch?v=${youtubeVideoId}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-12 h-12 rounded-full bg-[#34D399] hover:bg-[#10B981] flex items-center justify-center transition-transform hover:scale-105 shadow-[0_0_15px_rgba(52,211,153,0.4)]"
+                    >
+                      <Play className="w-5 h-5 text-black ml-1 fill-current" />
+                    </Link>
+                  ) : (
+                    <div className="w-12 h-12 rounded-full bg-gray-700 flex items-center justify-center cursor-not-allowed opacity-50">
+                      <Play className="w-5 h-5 text-gray-400 ml-1 fill-current" />
                     </div>
-                    <p className="text-white/80 text-lg leading-relaxed font-medium max-w-4xl">
-                      {synopsis}
+                  )}
+
+                  <div>
+                    <h3 className="text-[#FBBF24] font-bold text-sm mb-1 uppercase tracking-wide">Continue Watching</h3>
+                    <p className="text-xs text-gray-400">
+                      {youtubeVideoId ? 'Watch Trailer' : 'Trailer Unavailable'}
                     </p>
                   </div>
-                )}
-
-                {/* Characters Section */}
-                <AnimeCharacters characters={characterList} animeId={id} />
+                </div>
               </div>
-            </main>
+
+              <div className="space-y-2">
+                <p className="text-xs text-gray-400 line-clamp-1 italic">
+                  Start your journey with {canonicalTitle}...
+                </p>
+                {/* Progress Bar */}
+                <div className="h-1.5 w-full bg-gray-700 rounded-full overflow-hidden">
+                  <div className="h-full bg-[#FBBF24] w-[0%]" /> {/* 0% progress for new content */}
+                </div>
+              </div>
+            </div>
+
+        
+          
+
           </div>
         </div>
+        <div className="mt-8">
+              <h3 className="text-[#FBBF24] font-medium mb-6">Characters & Voice Actors</h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                {characterList.slice(0, 8).map((item: any) => {
+                  const charAttr = item.attributes;
+                  const charImg = item.relationships?.character?.attributes?.image?.original || charAttr?.image?.original;
+
+                  // We don't have deeply nested VA data easily available in this structure without more calls,
+                  // so we will simplify to just show the Character.
+                  return (
+                    <Link href={`/anime/${id}/character/${item.id}`} key={item.id} className="block">
+                      <div className="flex items-center gap-4 bg-[#1F1F1F] p-3 rounded-lg hover:bg-[#2A2A2A] transition-colors cursor-pointer group border border-white/5">
+                        <div className="w-12 h-12 rounded-full overflow-hidden flex-shrink-0 bg-gray-700">
+                          {charImg ? (
+                            <Image src={charImg} alt="Character" width={48} height={48} className="object-cover w-full h-full" />
+                          ) : (
+                            <div className="w-full h-full flex items-center justify-center bg-gray-600 text-[10px]">?</div>
+                          )}
+                        </div>
+                        <div>
+                          <p className="text-sm font-bold text-white group-hover:text-[#FBBF24] transition-colors line-clamp-1">{charAttr.name }</p>
+                          {/* Note: Kitsu structure for names via relationships is complex, simplifying for this view */}
+                          <p className="text-xs text-gray-500">Character ID: {item.id}</p>
+                        </div>
+                      </div>
+                    </Link>
+                  )
+                })}
+              </div>
+            </div>
       </div>
     </div>
   );
