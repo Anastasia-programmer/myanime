@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { Star, Tv, Layers } from 'lucide-react'; 
-import { Badge } from "@/components/ui/badge"; 
+import { Star, Tv, Layers } from 'lucide-react';
+import { Badge } from "@/components/ui/badge";
 
 interface Anime {
   id: string;
@@ -24,9 +24,9 @@ export default function AnimeCard({ anime }: AnimeCardProps) {
   const { canonicalTitle: title, posterImage, averageRating, episodeCount, showType } = anime.attributes;
 
   return (
-    <Link href={`/anime/${anime.id}`} className="block group">
-      <div className="  w-10/12 sm:w-auto relative overflow-hidden  rounded-xl bg-[#020617] border border-white/5 shadow-lg transition-all duration-300 hover:shadow-[0_0_30px_rgba(59,130,246,0.2)] hover:scale-[1.02] hover:border-blue-500/50">
-        
+    <Link href={`/anime/${anime.id}`} className="block group w-full">
+      <div className="relative overflow-hidden  rounded-xl bg-[#020617] border border-white/5 shadow-lg transition-all duration-300 hover:shadow-[0_0_30px_rgba(59,130,246,0.2)] hover:scale-[1.02] hover:border-blue-500/50">
+
         {/* Image Section */}
         <div className="relative aspect-[2/3] w-full overflow-hidden">
           {posterImage?.large ? (
@@ -42,16 +42,16 @@ export default function AnimeCard({ anime }: AnimeCardProps) {
               No image
             </div>
           )}
-          
+
           {/* Permanent Gradient for text legibility */}
-          <div className="absolute inset-0 bg-gradient-to-t from-[#020617] via-[#020617]/20 to-transparent opacity-90" />
-          
-         
+          <div className="absolute inset-0 " />
+
+
         </div>
 
         {/* Improved Bottom Section */}
-        <div className="absolute bottom-0 left-0 right-0 p-4 pt-12 bg-gradient-to-t from-[#020617] via-[#020617]/80 to-transparent backdrop-blur-[2px]">
-          
+        <div className="absolute bottom-0 left-0 right-0 p-4 pt-12 bg-linear-to-t from-[#020617] via-[#020617]/80 to-transparent backdrop-blur-[0.2px]">
+
           {/* Show Type Badge - Styled as a "tab" */}
           <div className="absolute top-0 left-4 -translate-y-1/2">
             <Badge variant="secondary" className="bg-blue-600 text-white border-none text-[10px] font-bold uppercase tracking-widest shadow-[0_0_15px_rgba(37,99,235,0.5)]">
@@ -67,7 +67,7 @@ export default function AnimeCard({ anime }: AnimeCardProps) {
 
           {/* Stats Bar */}
           <div className="flex items-center gap-4 text-white/60">
-            
+
             {/* Rating */}
             {averageRating && (
               <div className="flex items-center gap-1.5">

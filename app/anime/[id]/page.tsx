@@ -71,14 +71,14 @@ export default async function AnimeDetailPage({ params }: PageProps) {
         <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-transparent to-black/80" />
       </div>
 
-    
+
 
       {/* 3. Main Content Area */}
       <div className="relative z-10 container mx-auto px-4 lg:px-12 py-8 mt-4">
         <div className="flex flex-col lg:flex-row gap-10">
 
           {/* Left: Poster */}
-          <div className="flex-shrink-0 mx-auto lg:mx-0 w-[280px] sm:w-[320px] lg:w-[380px]">
+          <div className="flex-shrink-0 mx-auto lg:mx-0 w-full max-w-[280px] sm:w-[320px] lg:w-[380px]">
             {posterImage?.large ? (
               <div className="relative aspect-[2/3] rounded-lg overflow-hidden shadow-[0_0_40px_rgba(0,0,0,0.5)] border-2 border-white/5">
                 <Image
@@ -119,7 +119,7 @@ export default async function AnimeDetailPage({ params }: PageProps) {
             </div>
 
             {/* Title */}
-            <h1 className="text-4xl lg:text-5xl font-bold text-white mb-4 leading-tight">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4 leading-tight">
               {canonicalTitle}
               {/* Add localized title logic if needed, e.g. (S1) */}
             </h1>
@@ -193,41 +193,41 @@ export default async function AnimeDetailPage({ params }: PageProps) {
               </div>
             </div>
 
-        
-          
+
+
 
           </div>
         </div>
         <div className="mt-8">
-              <h3 className="text-[#FBBF24] font-medium mb-6">Characters & Voice Actors</h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                {characterList.slice(0, 8).map((item: any) => {
-                  const charAttr = item.attributes;
-                  const charImg = item.relationships?.character?.attributes?.image?.original || charAttr?.image?.original;
+          <h3 className="text-[#FBBF24] font-medium mb-6">Characters & Voice Actors</h3>
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {characterList.slice(0, 8).map((item: any) => {
+              const charAttr = item.attributes;
+              const charImg = item.relationships?.character?.attributes?.image?.original || charAttr?.image?.original;
 
-                  // We don't have deeply nested VA data easily available in this structure without more calls,
-                  // so we will simplify to just show the Character.
-                  return (
-                    <Link href={`/anime/${id}/character/${item.id}`} key={item.id} className="block">
-                      <div className="flex items-center gap-4 bg-[#1F1F1F] p-3 rounded-lg hover:bg-[#2A2A2A] transition-colors cursor-pointer group border border-white/5">
-                        <div className="w-12 h-12 rounded-full overflow-hidden flex-shrink-0 bg-gray-700">
-                          {charImg ? (
-                            <Image src={charImg} alt="Character" width={48} height={48} className="object-cover w-full h-full" />
-                          ) : (
-                            <div className="w-full h-full flex items-center justify-center bg-gray-600 text-[10px]">?</div>
-                          )}
-                        </div>
-                        <div>
-                          <p className="text-sm font-bold text-white group-hover:text-[#FBBF24] transition-colors line-clamp-1">{charAttr.name }</p>
-                          {/* Note: Kitsu structure for names via relationships is complex, simplifying for this view */}
-                          <p className="text-xs text-gray-500">Character ID: {item.id}</p>
-                        </div>
-                      </div>
-                    </Link>
-                  )
-                })}
-              </div>
-            </div>
+              // We don't have deeply nested VA data easily available in this structure without more calls,
+              // so we will simplify to just show the Character.
+              return (
+                <Link href={`/anime/${id}/character/${item.id}`} key={item.id} className="block">
+                  <div className="flex items-center gap-4 bg-[#1F1F1F] p-3 rounded-lg hover:bg-[#2A2A2A] transition-colors cursor-pointer group border border-white/5">
+                    <div className="w-12 h-12 rounded-full overflow-hidden flex-shrink-0 bg-gray-700">
+                      {charImg ? (
+                        <Image src={charImg} alt="Character" width={48} height={48} className="object-cover w-full h-full" />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center bg-gray-600 text-[10px]">?</div>
+                      )}
+                    </div>
+                    <div>
+                      <p className="text-sm font-bold text-white group-hover:text-[#FBBF24] transition-colors line-clamp-1">{charAttr.name}</p>
+                      {/* Note: Kitsu structure for names via relationships is complex, simplifying for this view */}
+                      <p className="text-xs text-gray-500">Character ID: {item.id}</p>
+                    </div>
+                  </div>
+                </Link>
+              )
+            })}
+          </div>
+        </div>
       </div>
     </div>
   );
