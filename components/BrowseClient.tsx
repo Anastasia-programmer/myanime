@@ -96,7 +96,7 @@ export default function BrowseClient({ initialAnime }: BrowseClientProps) {
         if (sort) params.set('sort', sort);
 
         startTransition(() => {
-            router.push(`/browse?${params.toString()}`, { scroll: false });
+            router.push(`/categories?${params.toString()}`, { scroll: false });
         });
     }, [debouncedQuery, category, season, year, subtype, status, ageRating, sort, router]);
 

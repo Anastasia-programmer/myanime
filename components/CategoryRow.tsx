@@ -12,14 +12,15 @@ import {
 interface CategoryRowProps {
     title: string;
     animeList: any[];
+    id?: string;
 }
 
-export default function CategoryRow({ title, animeList }: CategoryRowProps) {
+export default function CategoryRow({ title, animeList, id }: CategoryRowProps) {
     // Determine if we have enough items to scroll
     const canScroll = animeList.length > 5; // simplified check, carousel handles bounds
 
     return (
-        <div className="mb-8 space-y-4">
+        <div id={id} className="scroll-mt-24 mb-8 space-y-4">
             <div className="flex items-center justify-between px-4 sm:px-0">
                 <h3 className="text-xl md:text-2xl font-bold text-white drop-shadow-md">{title}</h3>
             </div>

@@ -1,42 +1,42 @@
-import { Github, Twitter, MessageSquare } from "lucide-react"
+import { Linkedin, Zap } from "lucide-react"
+import Link from "next/link"
 
 const Footer = () => {
   return (
-    <footer className="relative z-10 w-full bg-[#020617]/80 backdrop-blur-xl border-t border-white/10 py-10 text-white">
-      <div className="container mx-auto px-8 md:px-16 flex flex-col md:flex-row justify-between items-center gap-8">
-        
-        {/* Logo & Slogan */}
-        <div className="flex flex-col items-center md:items-start gap-1">
-        <h1 className="text-2xl font-black tracking-tighter italic uppercase">
-              OTAKU<span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500">MO</span>
-            </h1>
-          <p className="text-[10px] text-slate-500 uppercase tracking-[0.2em] font-medium">
-            Discover your next story
-          </p>
-        </div>
+    <footer className="relative z-10 w-full bg-[#030014]/90 backdrop-blur-md border-t border-white/5 py-12 px-4">
+      <div className="container mx-auto max-w-7xl">
+        <div className="flex flex-col items-center gap-8">
 
-        <div className="flex items-center gap-6 text-stone-300">
-          <a href="#" className="hover:text-blue-400 transition-all transform hover:scale-110">
-            <Twitter size={18} strokeWidth={2.5} />
-          </a>
-          <a href="#" className="hover:text-blue-400 transition-all transform hover:scale-110">
-            <MessageSquare size={18} strokeWidth={2.5} /> {/* Discord/Chat icon */}
-          </a>
-          <a href="#" className="hover:text-blue-400 transition-all transform hover:scale-110">
-            <Github size={18} strokeWidth={2.5} />
-          </a>
-        </div>
+          {/* Logo */}
+          <Link href="/" className="group flex items-center gap-2">
+            <div className="relative">
+              <div className="absolute inset-0 bg-pink-500 blur-lg opacity-20 group-hover:opacity-40 transition-opacity" />
+              <Zap className="w-8 h-8 text-[#FF0080] relative z-10 fill-pink-500/20" />
+            </div>
+            <span className="text-2xl font-black tracking-tighter text-white italic">
+              OTAKU<span className="text-[#FF0080]">MO</span>
+            </span>
+          </Link>
 
-        <div className="flex gap-8 text-[10px] font-bold uppercase tracking-widest text-stone-300">
-          <a href="#" className="hover:text-white transition-colors">Browse</a>
-          <a href="#" className="hover:text-white transition-colors">Privacy</a>
-          <a href="#" className="hover:text-white transition-colors">Terms</a>
-        </div>
+          {/* Minimal Socials */}
+          <div className="flex items-center gap-8">
+            <a
+              href="https://www.linkedin.com/in/amedjkouh-darine-805188374/"
+              className="text-white/40 hover:text-[#FF0080] transition-all transform hover:scale-110"
+              aria-label="LinkedIn"
+            >
+              <Linkedin size={20} />
+            </a>
+          </div>
 
-      </div>
-      
-      <div className="mt-8 text-center text-[11px] text-stone-100 uppercase font-semibold tracking-[0.4em]">
-        © 2025 OtaKumo
+          {/* Bottom Copyright */}
+          <div className="flex flex-col items-center gap-2">
+            <p className="text-xs font-bold uppercase tracking-[0.3em] text-white/30">
+              © 2025 OTAKUMO — DESIGNED FOR ANIME FANS
+            </p>
+            <div className="h-px w-12 bg-gradient-to-r from-transparent via-pink-500/50 to-transparent" />
+          </div>
+        </div>
       </div>
     </footer>
   )

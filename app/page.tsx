@@ -56,7 +56,7 @@ export default async function Home() {
       };
     }
     return null;
-  }).filter(cat => cat !== null && cat.data.length > 0);
+  }).filter((cat): cat is { title: string; data: any[] } => cat !== null && cat.data.length > 0);
 
   return (
     <div className="relative min-h-screen">
@@ -92,10 +92,22 @@ export default async function Home() {
           </div>
 
           <div className="space-y-4">
-            {categories.map((category) => (
-              // @ts-ignore
-              <CategoryRow key={category.title} title={category.title} animeList={category.data} />
-            ))}
+            {categories.map((category) => {
+              let id = undefined;
+              if (category.title === 'Trending Now') id = 'trending';
+              else if (category.title === 'Most Popular') id = 'popular';
+              else if (category.title === 'Upcoming') id = 'upcoming';
+
+              return (
+                // @ts-ignore
+                <CategoryRow
+                  key={category.title}
+                  title={category.title}
+                  animeList={category.data}
+                  id={id}
+                />
+              );
+            })}
           </div>
 
         </div>
