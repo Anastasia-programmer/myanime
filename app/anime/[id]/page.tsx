@@ -1,11 +1,12 @@
 import Image from 'next/image';
 import { getAnimeById, getAnimeCharacters } from '@/lib/kitsu';
 import { notFound } from 'next/navigation';
+import AnimeCharacters from '@/components/AnimeCharacters';
 // Added icons for metadata
 import { 
   Star, Play, Plus, Heart, Share2, Tv, 
   Calendar, Clock, ShieldAlert, Activity, 
-  Layers, Users, Info 
+  Layers, Info 
 } from 'lucide-react';
 
 interface PageProps {
@@ -48,6 +49,7 @@ export default async function AnimeDetailPage({ params }: PageProps) {
     endDate,
     ageRating,
     ageRatingGuide,
+    youtubeVideoId
   } = anime.attributes;
 
   const characterList = (characters?.included || []).filter(
@@ -73,14 +75,14 @@ export default async function AnimeDetailPage({ params }: PageProps) {
       <div className="fixed inset-0 z-0 overflow-hidden">
         {posterImage?.large ? (
           <>
-            <Image
-              src={posterImage.large}
-              alt={canonicalTitle}
-              fill
-              className="object-cover scale-110"
-              priority
-              quality={100}
-            />
+             <Image
+                     src="/cover5.jpg"
+                     alt="Anime Discovery Background"
+                     fill
+                     className="object-cover"
+                     priority
+                     quality={90}
+                   />
             <div className="absolute inset-0 bg-black/70" />
             <div className="absolute inset-0 backdrop-blur-[10px]" />
             <div className="absolute inset-0 bg-gradient-to-t from-[#020617] via-[#020617]/40 to-black/20" />
@@ -174,8 +176,11 @@ export default async function AnimeDetailPage({ params }: PageProps) {
 
                 {/* Actions */}
                 <div className="flex flex-wrap gap-3 mb-10">
-                  <button className="flex items-center gap-2 px-8 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-full font-bold uppercase text-[10px] tracking-widest transition-all shadow-[0_0_20px_rgba(37,99,235,0.4)]">
+        
+                  <button  className="flex items-center gap-2 px-8 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-full font-bold uppercase text-[10px] tracking-widest transition-all shadow-[0_0_20px_rgba(37,99,235,0.4)] " >
                     <Play className="w-4 h-4 fill-current" /> Watch Trailer
+
+
                   </button>
                   <button className="flex items-center gap-2 px-6 py-3 bg-white/5 hover:bg-white/10 text-white rounded-full font-bold uppercase text-[10px] tracking-widest transition-all border border-white/10">
                     <Plus className="w-4 h-4" /> Add to List
@@ -202,33 +207,7 @@ export default async function AnimeDetailPage({ params }: PageProps) {
                 )}
 
                 {/* Characters Section */}
-                <section>
-                  <div className="flex items-center gap-2 mb-8">
-                    <Users className="w-4 h-4 text-blue-400" />
-                    <h2 className="text-[10px] uppercase tracking-[0.4em] font-black text-blue-400">Key Characters</h2>
-                  </div>
-                  
-                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">
-                    {characterList.map((character: any) => {
-                      const characterName = character.attributes?.name || 'Unknown';
-                      const characterImage = character.attributes?.image?.original || character.attributes?.image?.large;
-                      return (
-                        <div key={character.id} className="group cursor-pointer">
-                          <div className="relative aspect-square rounded-full overflow-hidden mb-3 border-2 border-white/5 group-hover:border-blue-500 transition-all duration-500 shadow-xl">
-                            {characterImage ? (
-                              <Image src={characterImage} alt={characterName} fill className="object-cover group-hover:scale-110 transition-transform duration-500" />
-                            ) : (
-                              <div className="flex h-full items-center justify-center bg-slate-900 text-[10px] text-slate-500 font-bold">N/A</div>
-                            )}
-                          </div>
-                          <h3 className="text-[10px] font-bold text-center text-white/50 group-hover:text-white transition-colors uppercase tracking-widest line-clamp-2">
-                            {characterName}
-                          </h3>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </section>
+                <AnimeCharacters characters={characterList} animeId={id} />
               </div>
             </main>
           </div>

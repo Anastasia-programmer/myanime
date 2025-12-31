@@ -59,7 +59,7 @@ export default async function Home({ searchParams }: HomeProps) {
       </div>
 
       {/* Hero Section */}
-      <Hero featuredAnime={featuredAnime} />
+      <Hero />
 
       {/* Discover Section */}
       <div className="relative z-10">

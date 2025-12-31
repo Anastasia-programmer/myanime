@@ -8,7 +8,7 @@ const Footer = () => {
         {/* Logo & Slogan */}
         <div className="flex flex-col items-center md:items-start gap-1">
         <h1 className="text-2xl font-black tracking-tighter italic uppercase">
-              NEON<span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500">.KAI</span>
+              OTAKU<span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500">MO</span>
             </h1>
           <p className="text-[10px] text-slate-500 uppercase tracking-[0.2em] font-medium">
             Discover your next story
@@ -36,7 +36,7 @@ const Footer = () => {
       </div>
       
       <div className="mt-8 text-center text-[11px] text-stone-100 uppercase font-semibold tracking-[0.4em]">
-        © 2025 NEON.KAI
+        © 2025 OtaKumo
       </div>
     </footer>
   )

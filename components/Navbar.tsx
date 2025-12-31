@@ -1,4 +1,4 @@
-import { MonitorPlay } from "lucide-react"
+import { Cloud } from "lucide-react"
 
 const Navbar = () => {
   return (
@@ -6,17 +6,17 @@ const Navbar = () => {
       <nav className="flex h-24 items-center justify-between px-8 md:px-16 pointer-events-none">
         
         <div className="flex items-center gap-4 pointer-events-auto">
-          <div className="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center shadow-[0_0_20px_rgba(37,99,235,0.8)]">
-            <MonitorPlay className="w-6 h-6 text-white" />
-          </div>
+            <Cloud className="w-10 h-10 text-white" />
+           
+          
           
           <h1 className="text-2xl font-bold text-white tracking-tighter uppercase italic drop-shadow-md">
-            Neon<span className="text-blue-100">.Kai</span>
+           <span className="text-blue-100"> OtaKumo</span>
           </h1>
         </div>
 
         <div className="flex items-center gap-12 pointer-events-auto  lg:flex">
-          {["Work", "Our Story", "Insights", "Connect"].map((item) => (
+          {["Most Popular", "Highest Rated"].map((item) => (
             <a
               key={item}
               href="#"

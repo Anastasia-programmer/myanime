@@ -53,6 +53,7 @@ export async function getAnimeById(id: string) {
 
     return res.json();
 }
+
 export async function getAnimeCharacters(animeId: string) {
     const url = `${BASE_URL}/anime/${animeId}/anime-characters?include=character&page[limit]=18`;
 
@@ -62,6 +63,18 @@ export async function getAnimeCharacters(animeId: string) {
 
     if (!res.ok) {
         throw new Error('Failed to fetch anime characters');
+    }
+
+    return res.json();
+}
+
+export async function getCharacterById(characterId: string) {
+    const res = await fetch(`${BASE_URL}/characters/${characterId}`, {
+        next: { revalidate: 3600 }
+    });
+
+    if (!res.ok) {
+        throw new Error('Failed to fetch character');
     }
 
     return res.json();
