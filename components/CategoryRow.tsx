@@ -1,5 +1,3 @@
-'use client';
-
 import AnimeCard from '@/components/AnimeCard';
 import {
     Carousel,
@@ -16,13 +14,13 @@ interface CategoryRowProps {
 }
 
 export default function CategoryRow({ title, animeList, id }: CategoryRowProps) {
-    // Determine if we have enough items to scroll
-    const canScroll = animeList.length > 5; // simplified check, carousel handles bounds
-
     return (
         <div id={id} className="scroll-mt-24 mb-8 space-y-4">
-            <div className="flex items-center justify-between px-4 sm:px-0">
-                <h3 className="text-xl md:text-2xl font-bold text-white drop-shadow-md">{title}</h3>
+            <div className="flex items-center gap-4 px-4 sm:px-0">
+                <div className="h-8 w-1.5 rounded-full bg-gradient-to-b from-[#FF0080] via-[#7928CA] to-[#0070F3] shadow-[0_0_15px_rgba(255,0,128,0.5)]" />
+                <h3 className="text-xl md:text-2xl font-black tracking-tight uppercase italic text-transparent bg-clip-text bg-gradient-to-r from-white via-white to-pink-200 drop-shadow-[0_0_10px_rgba(255,255,255,0.3)]">
+                    {title}
+                </h3>
             </div>
 
             <div className="relative w-full px-4 sm:px-0">

@@ -1,111 +1,105 @@
 'use client';
 
 import Link from 'next/link';
-import { TextAnimate } from './ui/text-animate';
-import { ShimmerButton } from './ui/shimmer-button';
-import { AuroraText } from './ui/aurora-text';
-import { Search, Sparkles } from 'lucide-react';
+import { StaticHeroButton } from './ui/StaticHeroButton';
+import { Search, ChevronDown } from 'lucide-react';
 import { motion } from 'motion/react';
+import { AuroraText } from './ui/aurora-text';
 
 export default function Hero() {
-  return (
-    <section className="relative min-h-screen flex items-center justify-center">
-      {/* Content */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <div className="space-y-8 md:space-y-12">
-          {/* Main Title with Aurora Effect */}
-          <div className="space-y-4">
-            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-black tracking-tight leading-none">
-              <AuroraText
-                colors={['#FF0080', '#7928CA', '#0070F3', '#38bdf8', '#FF0080']}
-                speed={0.8}
-                className="block"
-              >
-                ANIME
-              </AuroraText>
-              <br />
-              <AuroraText
-                colors={['#7928CA', '#FF0080', '#38bdf8', '#0070F3', '#7928CA']}
-                speed={0.9}
-                className="block"
-              >
-                DISCOVERY
-              </AuroraText>
-            </h1>
+  const scrollToDiscover = () => {
+    const element = document.getElementById('discover');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      window.scrollTo({ top: window.innerHeight, behavior: 'smooth' });
+    }
+  };
 
-            {/* Animated Subtitle */}
-            <div className="pt-4">
-              <TextAnimate
-                as="p"
-                by="word"
-                animation="blurInUp"
-                delay={0.2}
-                duration={0.5}
-                className="text-xl sm:text-2xl md:text-3xl lg:text-4xl text-white/90 font-medium drop-shadow-2xl"
-                startOnView={true}
-                once={true}
-              >
-                Discover Your Next Favorite Anime Adventure
-              </TextAnimate>
+  return (
+    <section className="mt-20 relative min-h-screen flex items-center justify-center overflow-hidden">
+      {/* Content */}
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 text-center">
+        <div className="space-y-6 md:space-y-10">
+
+          {/* Main Title Section */}
+          <div className="space-y-2">
+            <div className="flex items-center justify-center gap-2 mb-4">
+              <span className="h-[1px] w-8 bg-pink-500/50" />
+              <span className="text-pink-400 font-mono tracking-[0.4em] uppercase text-xs font-bold drop-shadow-lg">
+                Awaken your spirit...
+              </span>
+              <span className="h-[1px] w-8 bg-pink-500/50" />
+            </div>
+            <div className="space-y-4">
+              <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-black tracking-tight leading-none">
+                <AuroraText
+                  colors={['#FF0080', '#7928CA', '#0070F3', '#38bdf8', '#FF0080']}
+                  speed={0.8}
+                  className="block"
+                >
+                  YOUR NEXT
+                </AuroraText>
+                <br />
+                <AuroraText
+                  colors={['#7928CA', '#FF0080', '#38bdf8', '#0070F3', '#7928CA']}
+                  speed={0.9}
+                  className="block"
+                >
+                  OBSESSION AWAITS
+                </AuroraText>
+              </h1>
+            </div>
+
+            {/* Subtitle */}
+            <div className="pt-6">
+              <p className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-white font-black italic uppercase tracking-tight drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)]">
+                Where Every Story Becomes a Legend.
+              </p>
             </div>
           </div>
 
           {/* Description */}
-          <TextAnimate
-            as="p"
-            by="word"
-            animation="fadeIn"
-            delay={0.5}
-            duration={0.4}
-            className="text-base sm:text-lg md:text-xl text-white/80 max-w-2xl mx-auto font-light drop-shadow-lg"
-            startOnView={true}
-            once={true}
-          >
-            Explore thousands of anime titles, find hidden gems, and track your favorite series all in one place
-          </TextAnimate>
+          <div className="relative max-w-2xl mx-auto">
+            <div className="absolute inset-0 bg-black/20 blur-2xl rounded-full" />
+            <p className="relative text-base sm:text-lg md:text-xl text-slate-50 leading-relaxed drop-shadow-md px-4 font-medium italic">
+              Whether you seek <span className="text-[#FF0080] font-bold drop-shadow-[0_0_8px_rgba(255,0,128,0.4)]">epic battles</span> that shake the heavens, <span className="text-[#38bdf8] font-bold drop-shadow-[0_0_8px_rgba(56,189,248,0.4)]">quiet moments</span> that heal the heart, or <span className="text-[#7928CA] font-bold drop-shadow-[0_0_8px_rgba(121,40,202,0.4)]">mysteries</span> that haunt your thoughts... Your perfect story is waiting.
+            </p>
+          </div>
 
           {/* CTA Buttons */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.8, duration: 0.5 }}
-            className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4"
-          >
-            <Link href="/search">
-              <ShimmerButton
-                shimmerColor="#ffffff"
-                shimmerSize="0.1em"
-                shimmerDuration="2s"
-                borderRadius="12px"
-                background="rgba(124, 58, 237, 0.8)"
-                className="px-8 py-4 text-lg font-semibold backdrop-blur-sm hover:scale-105 transition-transform duration-300"
+          <div className="flex flex-col sm:flex-row items-center justify-center ">
+            <Link href="/categories">
+              <StaticHeroButton
+                background="rgba(236, 72, 153, 0.1)"
+                className="border border-pink-500/50 backdrop-blur-md hover:bg-pink-500/20 shadow-[0_0_20px_rgba(236,72,153,0.1)] text-lg"
               >
-                <Search className="mr-2 h-5 w-5 inline" />
-                Explore Anime
-              </ShimmerButton>
+                <Search className="mr-2 h-5 w-5 inline text-pink-400" />
+                Start Exploring
+              </StaticHeroButton>
             </Link>
+          </div>
 
-            <Link href="/trending">
-              <ShimmerButton
-                shimmerColor="#ffffff"
-                shimmerSize="0.1em"
-                shimmerDuration="2s"
-                borderRadius="12px"
-                background="rgba(236, 72, 153, 0.8)"
-                className="px-8 py-4 text-lg font-semibold backdrop-blur-sm hover:scale-105 transition-transform duration-300"
-              >
-                <Sparkles className="mr-2 h-5 w-5 inline" />
-                Trending Now
-              </ShimmerButton>
-            </Link>
-          </motion.div>
+          <motion.button
+            onClick={scrollToDiscover}
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1, duration: 0.8 }}
+            className="relative  mx-auto block text-white/30 hover:text-white/60 transition-colors cursor-pointer z-20"
+          >
+            <motion.div
+              animate={{ y: [0, 8, 0] }}
+              transition={{
+                repeat: Infinity,
+                duration: 2,
+                ease: "easeInOut"
+              }}
+            >
+              <ChevronDown className="w-10 h-10" />
+            </motion.div>
+          </motion.button>
         </div>
       </div>
-
-      
-
-     
     </section>
   );
 }
-
