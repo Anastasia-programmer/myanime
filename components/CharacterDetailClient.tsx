@@ -28,7 +28,7 @@ export default function CharacterDetailClient({
       {/* Animated Background - Same as home page */}
       <div className="fixed inset-0 z-0 overflow-hidden">
         <Image
-          src="/cover5.jpg"
+          src="/cv7.jpg"
           alt="Anime Discovery Background"
           fill
           className="object-cover"

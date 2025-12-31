@@ -76,16 +76,15 @@ export default async function AnimeDetailPage({ params }: PageProps) {
         {posterImage?.large ? (
           <>
              <Image
-                     src="/cover5.jpg"
+                     src={"/cv7.jpg"}
                      alt="Anime Discovery Background"
                      fill
                      className="object-cover"
                      priority
                      quality={90}
                    />
-            <div className="absolute inset-0 bg-black/70" />
-            <div className="absolute inset-0 backdrop-blur-[10px]" />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#020617] via-[#020617]/40 to-black/20" />
+            <div className="absolute inset-0 backdrop-blur-[5px]" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#020617] via-[#020617]/20 to-black/10" />
           </>
         ) : (
           <div className="absolute inset-0 bg-[#020617]" />
