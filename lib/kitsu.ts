@@ -6,6 +6,11 @@ type AnimeFilters = {
     status?: string;
     sort?: string;
     limit?: number;
+    season?: string;
+    year?: string;
+    subtype?: string;
+    ageRating?: string;
+    offset?: number;
 };
 
 // Helper function to create timeout signal
@@ -35,6 +40,22 @@ export async function getAnimeList(filters: AnimeFilters = {}) {
             url.searchParams.append('filter[status]', filters.status);
         }
 
+        if (filters.season && filters.season !== 'all') {
+            url.searchParams.append('filter[season]', filters.season);
+        }
+
+        if (filters.year && filters.year !== 'all') {
+            url.searchParams.append('filter[seasonYear]', filters.year);
+        }
+
+        if (filters.subtype && filters.subtype !== 'all') {
+            url.searchParams.append('filter[subtype]', filters.subtype);
+        }
+
+        if (filters.ageRating && filters.ageRating !== 'all') {
+            url.searchParams.append('filter[ageRating]', filters.ageRating);
+        }
+
         url.searchParams.append(
             'sort',
             filters.sort || '-userCount'
@@ -42,8 +63,12 @@ export async function getAnimeList(filters: AnimeFilters = {}) {
 
         url.searchParams.append(
             'page[limit]',
-            String(filters.limit || 20 )
+            String(filters.limit || 20)
         );
+
+        if (filters.offset) {
+            url.searchParams.append('page[offset]', String(filters.offset));
+        }
 
         const res = await fetch(url.toString(), {
             next: { revalidate: 3600 },
