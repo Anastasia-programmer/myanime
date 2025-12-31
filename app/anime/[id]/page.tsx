@@ -70,7 +70,7 @@ export default async function AnimeDetailPage({ params }: PageProps) {
   };
 
   return (
-    <div className="relative min-h-screen bg-[#020617]">
+    <div className=" mt-20 relative min-h-screen bg-[#020617]">
       {/* BACKGROUND with cinematic blur */}
       <div className="fixed inset-0 z-0 overflow-hidden">
         {posterImage?.large ? (
@@ -179,17 +179,6 @@ export default async function AnimeDetailPage({ params }: PageProps) {
         
                   <button  className="flex items-center gap-2 px-8 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-full font-bold uppercase text-[10px] tracking-widest transition-all shadow-[0_0_20px_rgba(37,99,235,0.4)] " >
                     <Play className="w-4 h-4 fill-current" /> Watch Trailer
-
-
-                  </button>
-                  <button className="flex items-center gap-2 px-6 py-3 bg-white/5 hover:bg-white/10 text-white rounded-full font-bold uppercase text-[10px] tracking-widest transition-all border border-white/10">
-                    <Plus className="w-4 h-4" /> Add to List
-                  </button>
-                  <button className="flex items-center justify-center w-12 h-12 bg-white/5 hover:bg-white/10 text-white rounded-full transition-all border border-white/10">
-                    <Heart className="w-5 h-5" />
-                  </button>
-                  <button className="flex items-center justify-center w-12 h-12 bg-white/5 hover:bg-white/10 text-white rounded-full transition-all border border-white/10">
-                    <Share2 className="w-5 h-5" />
                   </button>
                 </div>
 

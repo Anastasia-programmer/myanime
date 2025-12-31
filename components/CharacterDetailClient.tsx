@@ -23,7 +23,7 @@ export default function CharacterDetailClient({
   bio,
 }: CharacterDetailClientProps) {
   return (
-    <div className="relative min-h-screen bg-[#020617] overflow-x-hidden">
+    <div className=" mt-20 relative min-h-screen bg-[#020617] overflow-x-hidden">
       
       {/* Animated Background - Same as home page */}
       <div className="fixed inset-0 z-0 overflow-hidden">

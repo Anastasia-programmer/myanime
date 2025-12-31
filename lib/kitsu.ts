@@ -55,7 +55,7 @@ export async function getAnimeById(id: string) {
 }
 
 export async function getAnimeCharacters(animeId: string) {
-    const url = `${BASE_URL}/anime/${animeId}/anime-characters?include=character&page[limit]=18`;
+    const url = `${BASE_URL}/anime/${animeId}/anime-characters?include=character&page[limit]=12`;
 
     const res = await fetch(url, {
         next: { revalidate: 3600 }
