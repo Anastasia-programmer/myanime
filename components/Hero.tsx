@@ -68,7 +68,7 @@ export default function Hero() {
           </div>
 
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row items-center justify-center ">
+          <div className="flex flex-col mb-1 sm:flex-row items-center justify-center ">
             <Link href="/categories">
               <StaticHeroButton
                 background="rgba(236, 72, 153, 0.1)"
@@ -84,7 +84,7 @@ export default function Hero() {
             onClick={scrollToDiscover}
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1, duration: 0.8 }}
+            transition={{ delay: 0, duration: 0.4 }}
             className="relative  mx-auto block text-white/30 hover:text-white/60 transition-colors cursor-pointer z-20"
           >
             <motion.div

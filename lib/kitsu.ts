@@ -91,7 +91,7 @@ export async function getAnimeList(filters: AnimeFilters = {}) {
 
 export async function getAnimeById(id: string) {
     try {
-        const res = await fetch(`${BASE_URL}/anime/${id}`, {
+        const res = await fetch(`${BASE_URL}/anime/${id}?include=categories`, {
             next: { revalidate: 3600 },
             signal: createTimeoutSignal(10000) // 10 second timeout
         });

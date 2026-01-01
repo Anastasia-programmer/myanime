@@ -82,7 +82,7 @@ export default async function Home() {
       <Hero />
 
       {/* Discover Section */}
-      <div id="discover" className="relative z-10 scroll-mt-20">
+      <div id="trending" className="relative z-10 scroll-mt-20">
         {/* Content */}
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="relative mb-20">
@@ -114,8 +114,7 @@ export default async function Home() {
           <div className="space-y-4">
             {categories.map((category) => {
               let id = undefined;
-              if (category.title === 'Trending Now') id = 'trending';
-              else if (category.title === 'Most Popular') id = 'popular';
+              if (category.title === 'Most Popular') id = 'popular';
               else if (category.title === 'Upcoming') id = 'upcoming';
 
               return (

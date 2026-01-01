@@ -1,4 +1,4 @@
-import { Linkedin, Zap } from "lucide-react"
+import { Linkedin,Swords } from "lucide-react"
 import Link from "next/link"
 
 const Footer = () => {
@@ -11,7 +11,7 @@ const Footer = () => {
           <Link href="/" className="group flex items-center gap-2">
             <div className="relative">
               <div className="absolute inset-0 bg-pink-500 blur-lg opacity-20 group-hover:opacity-40 transition-opacity" />
-              <Zap className="w-8 h-8 text-[#FF0080] relative z-10 fill-pink-500/20" />
+              <Swords className="w-8 h-8 text-[#FF0080] relative z-10 fill-pink-500/20" />
             </div>
             <span className="text-2xl font-black tracking-tighter text-white italic">
               OTAKU<span className="text-[#FF0080]">MO</span>
