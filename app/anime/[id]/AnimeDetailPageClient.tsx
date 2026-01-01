@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { AuroraText } from '@/components/ui/aurora-text';
-import { Play, Star, User, Activity, Clock, Layers, Info, Users } from 'lucide-react';
+import { Play, Star, User, Activity, Clock, Layers, Info, Users, Sparkles, TrendingUp, Shield, Zap } from 'lucide-react';
 
 interface AnimeDetailPageClientProps {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -25,12 +25,62 @@ export default function AnimeDetailPageClient({ anime, categories, characters, i
     const {
         canonicalTitle, posterImage, synopsis, status,
         episodeCount, episodeLength, titles,
-        averageRating, youtubeVideoId
+        averageRating, youtubeVideoId, ageRating, ageRatingGuide
     } = anime.attributes;
 
     const allCharacters = (characters?.included || []).filter((item: { type: string }) => item.type === 'characters');
     const displayedCharacters = showAllCharacters ? allCharacters : allCharacters.slice(0, 4);
     const ratingValue = parseFloat(averageRating || '0') / 10;
+
+    // What to Expect Intelligence Panel - Deterministic Logic
+    const getTone = () => {
+        const categoryTitles = (categories || []).map((cat: { attributes: { title: string } }) => 
+            cat.attributes.title.toLowerCase()
+        );
+        
+        if (categoryTitles.some(t => ['horror', 'thriller', 'psychological'].includes(t))) return 'Dark & Intense';
+        if (categoryTitles.some(t => ['comedy', 'slice of life'].includes(t))) return 'Light & Fun';
+        if (categoryTitles.some(t => ['romance', 'shoujo', 'shoujo ai'].includes(t))) return 'Romantic & Emotional';
+        if (categoryTitles.some(t => ['action', 'adventure', 'shounen'].includes(t))) return 'Action-Packed';
+        if (categoryTitles.some(t => ['drama'].includes(t))) return 'Dramatic & Serious';
+        if (categoryTitles.some(t => ['fantasy', 'supernatural', 'magic'].includes(t))) return 'Fantastical & Mystical';
+        return 'Mixed Tone';
+    };
+
+    const getPacing = () => {
+        const totalMinutes = (episodeCount || 0) * (episodeLength || 24);
+        if (totalMinutes < 300) return 'Quick Watch';
+        if (totalMinutes < 1200) return 'Moderate Pace';
+        return 'Epic Journey';
+    };
+
+    const getCommitmentLevel = () => {
+        const totalHours = ((episodeCount || 0) * (episodeLength || 24)) / 60;
+        if (totalHours < 5) return { level: 'Short', hours: totalHours.toFixed(1) };
+        if (totalHours < 20) return { level: 'Medium', hours: totalHours.toFixed(1) };
+        return { level: 'Long', hours: totalHours.toFixed(1) };
+    };
+
+    const getViewerSuitability = () => {
+        const rating = ageRating || ageRatingGuide || '';
+        const categoryTitles = (categories || []).map((cat: { attributes: { title: string } }) => 
+            cat.attributes.title.toLowerCase()
+        );
+        
+        if (rating === 'G' || rating.includes('G')) return 'All Ages';
+        if (rating === 'PG' || rating.includes('PG')) {
+            if (categoryTitles.some(t => ['violence', 'ecchi'].includes(t))) return 'Teen+';
+            return 'Family Friendly';
+        }
+        if (rating === 'R' || rating === 'R18' || rating.includes('R')) return 'Mature';
+        if (categoryTitles.some(t => ['violence', 'horror', 'thriller'].includes(t))) return 'Teen+';
+        return 'General Audience';
+    };
+
+    const tone = getTone();
+    const pacing = getPacing();
+    const commitment = getCommitmentLevel();
+    const suitability = getViewerSuitability();
 
     return (
         <div className="relative min-h-screen bg-[#020617] text-slate-200 overflow-x-hidden font-sans">
@@ -152,6 +202,44 @@ export default function AnimeDetailPageClient({ anime, categories, characters, i
                                                 {isSynopsisExpanded ? 'Read Less' : 'Read More'}
                                             </button>
                                         )}
+                                    </div>
+                                </div>
+
+                                {/* What to Expect Intelligence Panel */}
+                                <div className="relative pt-8 mt-8 border-t border-white/10">
+                                    <h3 className="text-[10px] font-black uppercase tracking-[0.4em] text-white/30 mb-6 flex items-center gap-3">
+                                        <Sparkles size={12} /> What to Expect
+                                    </h3>
+                                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                                        <div className="bg-white/5 border border-white/10 rounded-xl p-4 hover:border-pink-500/50 transition-all">
+                                            <div className="flex items-center gap-2 mb-2">
+                                                <TrendingUp className="w-4 h-4 text-pink-400" />
+                                                <span className="text-[9px] uppercase tracking-widest text-white/40 font-bold">Tone</span>
+                                            </div>
+                                            <p className="text-sm font-bold text-white">{tone}</p>
+                                        </div>
+                                        <div className="bg-white/5 border border-white/10 rounded-xl p-4 hover:border-blue-500/50 transition-all">
+                                            <div className="flex items-center gap-2 mb-2">
+                                                <Zap className="w-4 h-4 text-blue-400" />
+                                                <span className="text-[9px] uppercase tracking-widest text-white/40 font-bold">Pacing</span>
+                                            </div>
+                                            <p className="text-sm font-bold text-white">{pacing}</p>
+                                        </div>
+                                        <div className="bg-white/5 border border-white/10 rounded-xl p-4 hover:border-yellow-500/50 transition-all">
+                                            <div className="flex items-center gap-2 mb-2">
+                                                <Clock className="w-4 h-4 text-yellow-400" />
+                                                <span className="text-[9px] uppercase tracking-widest text-white/40 font-bold">Commitment</span>
+                                            </div>
+                                            <p className="text-sm font-bold text-white">{commitment.level}</p>
+                                            <p className="text-[10px] text-white/50 mt-1">{commitment.hours}h total</p>
+                                        </div>
+                                        <div className="bg-white/5 border border-white/10 rounded-xl p-4 hover:border-green-500/50 transition-all">
+                                            <div className="flex items-center gap-2 mb-2">
+                                                <Shield className="w-4 h-4 text-green-400" />
+                                                <span className="text-[9px] uppercase tracking-widest text-white/40 font-bold">Suitability</span>
+                                            </div>
+                                            <p className="text-sm font-bold text-white">{suitability}</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

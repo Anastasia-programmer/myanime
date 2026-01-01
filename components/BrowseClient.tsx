@@ -1,8 +1,8 @@
 'use client';
 
-import { useState, useEffect, useTransition } from 'react';
+import { useState, useEffect, useTransition, useMemo } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { Search, Filter, X, ChevronDown, SlidersHorizontal } from 'lucide-react';
+import { Search, Filter, X, ChevronDown, SlidersHorizontal, Sparkles, Gem } from 'lucide-react';
 import AnimeGrid from './AnimeGrid';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
@@ -76,6 +76,7 @@ export default function BrowseClient({ initialAnime }: BrowseClientProps) {
     const [status, setStatus] = useState(searchParams.get('status') || 'all');
     const [ageRating, setAgeRating] = useState(searchParams.get('ageRating') || 'all');
     const [sort, setSort] = useState(searchParams.get('sort') || '-userCount');
+    const [hiddenGems, setHiddenGems] = useState(false);
 
     // Mobile drawer state
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -107,6 +108,26 @@ export default function BrowseClient({ initialAnime }: BrowseClientProps) {
             router.push(`/categories?${params.toString()}`, { scroll: false });
         });
     }, [debouncedQuery, category, season, year, subtype, status, ageRating, sort, router]);
+
+    // Filter anime based on Hidden Gems criteria (client-side)
+    const filteredAnime = useMemo(() => {
+        if (!hiddenGems) return initialAnime;
+
+        return initialAnime.filter((anime: any) => {
+            const rating = parseFloat(anime.attributes?.averageRating || '0') / 10;
+            const userCount = anime.attributes?.userCount || 0;
+            
+            // High rating (>= 7.5) and lower popularity (userCount < 10000)
+            return rating >= 7.5 && userCount > 0 && userCount < 10000;
+        });
+    }, [initialAnime, hiddenGems]);
+
+    // Surprise Me - Select random anime from filtered results
+    const handleSurpriseMe = () => {
+        if (filteredAnime.length === 0) return;
+        const randomAnime = filteredAnime[Math.floor(Math.random() * filteredAnime.length)];
+        router.push(`/anime/${randomAnime.id}`);
+    };
 
 
     return (
@@ -246,45 +267,82 @@ export default function BrowseClient({ initialAnime }: BrowseClientProps) {
                             </div>
                         )}
 
-                        <div className="mb-6 flex flex-col md:flex-row items-center justify-between gap-4 bg-white/[0.02] border border-white/5 rounded-2xl p-4 backdrop-blur-sm">
-                            <div className="flex flex-col sm:flex-row items-center gap-4 w-full md:w-auto">
-                                <div className="text-sm font-bold uppercase tracking-widest text-white/60 whitespace-nowrap self-start sm:self-auto">
-                                    <span className="text-white">{initialAnime?.length || 0}</span> Results Found
-                                </div>
-                                <div className="h-4 w-px bg-white/10 hidden sm:block" />
-                                {/* Search Bar moved here */}
-                                <div className="relative w-full sm:w-64 group">
-                                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                        <Search className="h-4 w-4 text-white/40 group-focus-within:text-pink-400 transition-colors" />
+                        <div className="mb-6 flex flex-col gap-4">
+                            {/* Top Row: Results, Search, Sort */}
+                            <div className="flex flex-col md:flex-row items-center justify-between gap-4 bg-white/[0.02] border border-white/5 rounded-2xl p-4 backdrop-blur-sm">
+                                <div className="flex flex-col sm:flex-row items-center gap-4 w-full md:w-auto">
+                                    <div className="text-sm font-bold uppercase tracking-widest text-white/60 whitespace-nowrap self-start sm:self-auto">
+                                        <span className="text-white">{filteredAnime?.length || 0}</span> Results Found
                                     </div>
-                                    <input
-                                        type="text"
-                                        className="block w-full pl-9 pr-3 py-2 border border-white/10 rounded-xl leading-5 bg-white/5 text-white placeholder-white/30 focus:outline-none focus:bg-white/10 focus:border-white/30 text-sm transition-all"
-                                        placeholder="Search..."
-                                        value={query}
-                                        onChange={(e) => setQuery(e.target.value)}
-                                    />
+                                    <div className="h-4 w-px bg-white/10 hidden sm:block" />
+                                    {/* Search Bar moved here */}
+                                    <div className="relative w-full sm:w-64 group">
+                                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                            <Search className="h-4 w-4 text-white/40 group-focus-within:text-pink-400 transition-colors" />
+                                        </div>
+                                        <input
+                                            type="text"
+                                            className="block w-full pl-9 pr-3 py-2 border border-white/10 rounded-xl leading-5 bg-white/5 text-white placeholder-white/30 focus:outline-none focus:bg-white/10 focus:border-white/30 text-sm transition-all"
+                                            placeholder="Search..."
+                                            value={query}
+                                            onChange={(e) => setQuery(e.target.value)}
+                                        />
+                                    </div>
+                                </div>
+
+                                {/* Desktop Sort moved here */}
+                                <div className="hidden md:flex items-center gap-3">
+                                    <span className="text-xs font-bold text-white/50 uppercase tracking-widest">Sort By</span>
+                                    <select
+                                        value={sort}
+                                        onChange={(e) => setSort(e.target.value)}
+                                        className="bg-transparent text-white text-sm font-bold focus:outline-none cursor-pointer border-none hover:text-pink-400 transition-colors"
+                                    >
+                                        <option value="-userCount" className="bg-[#111]">Most Popular</option>
+                                        <option value="-averageRating" className="bg-[#111]">Highest Rated</option>
+                                        <option value="-startDate" className="bg-[#111]">Newest</option>
+                                        <option value="startDate" className="bg-[#111]">Oldest</option>
+                                    </select>
                                 </div>
                             </div>
 
-                            {/* Desktop Sort moved here */}
-                            <div className="hidden md:flex items-center gap-3">
-                                <span className="text-xs font-bold text-white/50 uppercase tracking-widest">Sort By</span>
-                                <select
-                                    value={sort}
-                                    onChange={(e) => setSort(e.target.value)}
-                                    className="bg-transparent text-white text-sm font-bold focus:outline-none cursor-pointer border-none hover:text-pink-400 transition-colors"
+                            {/* Discovery Features Row */}
+                            <div className="flex flex-col sm:flex-row items-center gap-3 bg-white/[0.02] border border-white/5 rounded-2xl p-4 backdrop-blur-sm">
+                                <button
+                                    onClick={handleSurpriseMe}
+                                    disabled={filteredAnime.length === 0}
+                                    className="flex items-center gap-2 px-6 py-2.5 bg-gradient-to-r from-pink-600 to-purple-700 hover:from-pink-500 hover:to-purple-600 text-white rounded-xl transition-all duration-300 shadow-[0_0_20px_rgba(236,72,153,0.2)] disabled:opacity-50 disabled:cursor-not-allowed font-bold text-sm uppercase tracking-widest"
                                 >
-                                    <option value="-userCount" className="bg-[#111]">Most Popular</option>
-                                    <option value="-averageRating" className="bg-[#111]">Highest Rated</option>
-                                    <option value="-startDate" className="bg-[#111]">Newest</option>
-                                    <option value="startDate" className="bg-[#111]">Oldest</option>
-                                </select>
+                                    <Sparkles className="w-4 h-4" />
+                                    Surprise Me
+                                </button>
+                                
+                                <div className="h-6 w-px bg-white/10" />
+                                
+                                <label className="flex items-center gap-3 cursor-pointer group">
+                                    <div className="relative">
+                                        <input
+                                            type="checkbox"
+                                            checked={hiddenGems}
+                                            onChange={(e) => setHiddenGems(e.target.checked)}
+                                            className="sr-only"
+                                        />
+                                        <div className={`w-12 h-6 rounded-full transition-all duration-300 ${hiddenGems ? 'bg-gradient-to-r from-yellow-500 to-orange-500' : 'bg-white/10'} border border-white/20`}>
+                                            <div className={`w-5 h-5 rounded-full bg-white transition-all duration-300 mt-0.5 ml-0.5 ${hiddenGems ? 'translate-x-6' : 'translate-x-0'}`} />
+                                        </div>
+                                    </div>
+                                    <div className="flex items-center gap-2">
+                                        <Gem className={`w-4 h-4 transition-colors ${hiddenGems ? 'text-yellow-400' : 'text-white/40'}`} />
+                                        <span className={`text-sm font-bold uppercase tracking-widest transition-colors ${hiddenGems ? 'text-yellow-400' : 'text-white/60'}`}>
+                                            Hidden Gems
+                                        </span>
+                                    </div>
+                                </label>
                             </div>
                         </div>
 
                         <div className="min-h-125">
-                            <AnimeGrid animeList={initialAnime || []} />
+                            <AnimeGrid animeList={filteredAnime || []} />
                         </div>
                     </div>
                 </div>
