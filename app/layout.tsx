@@ -8,8 +8,10 @@ import Footer from "@/components/Footer";
 const geistSans = { variable: "font-sans" };
 const geistMono = { variable: "font-mono" };
 
+const metadataBase = new URL("https://otakumo.vercel.app"); // Placeholder: Update this with your actual production domain
+
 export const metadata: Metadata = {
-  metadataBase: new URL("https://otakumo.vercel.app"), // Placeholder: Update this with your actual production domain
+  metadataBase,
   title: "OTAKUMO - Discover Your Next Favorite Anime",
   description: "A premium, high-tech anime discovery platform built with Next.js 16 and Kitsu API. Explore thousands of titles with high-performance search and immersive character dossiers.",
   openGraph: {
@@ -21,7 +23,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/im.png",
+        url: new URL("/im.png", metadataBase).toString(),
         width: 1200,
         height: 630,
         alt: "OTAKUMO - Anime Discovery Interface",
@@ -32,7 +34,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "OTAKUMO - Discover Your Next Favorite Anime",
     description: "A premium anime discovery experience.",
-    images: ["/im.png"],
+    images: [new URL("/im.png", metadataBase).toString()],
   },
 };
 
