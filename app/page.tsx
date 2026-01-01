@@ -86,6 +86,16 @@ export default async function Home() {
                 </p>
               </div>
 
+              {/* Mobile Scroll Hint - Only visible on small screens */}
+              <div className="lg:hidden pt-10 ">
+                <p className="text-s text-slate-100 font-medium uppercase tracking-wider flex items-center justify-center gap-2">
+                  <span>Swipe to left </span>
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                  <span>to see more</span>
+                </p>
+              </div>
 
             </div>
           </div>
