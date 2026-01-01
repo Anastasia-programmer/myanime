@@ -31,7 +31,7 @@ export default function Hero() {
               <span className="h-[1px] w-8 bg-pink-500/50" />
             </div>
             <div className="space-y-4">
-              <h1 className="text-[clamp(2.5rem,10vw,8rem)] font-black tracking-tight leading-none">
+              <h1 className="text-[clamp(2.5rem,10vw,6rem)] font-black tracking-tight leading-none">
                 <AuroraText
                   colors={['#FF0080', '#7928CA', '#0070F3', '#38bdf8', '#FF0080']}
                   speed={0.8}
@@ -51,7 +51,7 @@ export default function Hero() {
             </div>
 
             {/* Subtitle */}
-            <div className="pt-6">
+            <div className="">
               <p className="text-[clamp(1.25rem,4vw,3rem)] text-white font-black italic uppercase tracking-tight drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)]">
                 Where Every Story Becomes a Legend.
               </p>
@@ -59,8 +59,8 @@ export default function Hero() {
           </div>
 
           {/* Description */}
-          <div className="relative max-w-2xl mx-auto">
-            <div className="absolute inset-0 bg-black/20 blur-2xl rounded-full" />
+          <div className="relative mt-0 max-w-2xl mx-auto">
+            <div className="absolute inset-0 bg-black/20 blur-2xl  rounded-full" />
             <p className="relative text-base sm:text-lg md:text-xl text-slate-50 leading-relaxed drop-shadow-md px-4 font-medium italic">
               Whether you seek <span className="text-[#FF0080] font-bold drop-shadow-[0_0_8px_rgba(255,0,128,0.4)]">epic battles</span> that shake the heavens, <span className="text-[#38bdf8] font-bold drop-shadow-[0_0_8px_rgba(56,189,248,0.4)]">quiet moments</span> that heal the heart, or <span className="text-[#7928CA] font-bold drop-shadow-[0_0_8px_rgba(121,40,202,0.4)]">mysteries</span> that haunt your thoughts... Your perfect story is waiting.
             </p>

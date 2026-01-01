@@ -46,7 +46,7 @@ export default function CharacterDetailClient({
   const hasAnyStats = hasPersonal || hasProfessional || hasOther;
 
   return (
-    <div className="pt-10 relative min-h-screen bg-[#020617] text-slate-200 selection:bg-pink-500/30 overflow-x-hidden font-sans">
+    <div className="pt-10 relative min-h-screen text-slate-200 selection:bg-pink-500/30 overflow-x-hidden font-sans">
       <div className="relative z-10 pt-16 md:pt-28 pb-20">
         <main className="container mx-auto px-4 sm:px-6 lg:px-12">
 

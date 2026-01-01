@@ -83,7 +83,7 @@ export default function AnimeDetailPageClient({ anime, categories, characters, i
     const suitability = getViewerSuitability();
 
     return (
-        <div className="relative min-h-screen bg-[#020617] text-slate-200 overflow-x-hidden font-sans">
+        <div className="relative min-h-screen text-slate-200 overflow-x-hidden font-sans">
             <div className="relative z-10 pt-28 pb-20">
                 <main className="container mx-auto px-6 lg:px-12">
 

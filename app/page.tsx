@@ -59,25 +59,25 @@ export default async function Home() {
   }).filter((cat): cat is { title: string; data: any[] } => cat !== null && cat.data.length > 0);
 
   return (
-    <div className="relative min-h-screen overflow-x-hidden">
+    <div className="pt-5 relative min-h-screen overflow-x-hidden">
       {/* Hero Section */}
       <Hero />
 
       {/* Discover Section */}
       <div id="trending" className="relative z-10 scroll-mt-20">
         {/* Content */}
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-5">
           <div className="relative mb-20">
 
 
             <div className="relative z-10 text-center space-y-4">
               {/* Main Title - Simplified */}
-              <h2 className="text-4xl sm:text-5xl md:text-7xl font-black text-white uppercase italic tracking-tighter leading-none drop-shadow-lg">
+              <h2 className="text-4xl  sm:text-5xl md:text-7xl font-black text-white uppercase italic tracking-tighter leading-none drop-shadow-lg">
                 Your Anime Encyclopedia
               </h2>
 
               {/* Poetic Subtext */}
-              <div className="relative max-w-2xl mx-auto pt-4">
+              <div className="relative max-w-2xl mx-auto pt-2 " >
                 {/* Subtle blur backing for readability */}
                 <div className="absolute inset-0 bg-black/40 blur-3xl -z-10" />
 
