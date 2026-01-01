@@ -1,37 +1,37 @@
-# 🌌 MyAnime: The Ultimate Anime Encyclopedia
+# 🌌 OTAKUMO: The Ultimate Anime Discovery Platform
 
-A premium, high-tech anime discovery platform built with **Next.js 16**, **Tailwind CSS 4**, and **Framer Motion**. MyAnime provides a glassmorphic, immersive experience for exploring the vast world of Japanese animation using the **Kitsu API**.
+OTAKUMO is a premium, high-tech anime encyclopedia and discovery platform. Built with **Next.js 16**, **Tailwind CSS 4**, and **Motion**, it provides a glassmorphic, immersive experience for exploring the vast world of Japanese animation using the **Kitsu API**.
 
-![Hero Preview](/public/cv7.jpg)
+![Hero Preview](/im.png)
 
-## ✨ Features
+## ✨ Premium Features
 
-- **🚀 Real-time Discovery**: Explore Trending Now, Most Popular, and Upcoming series directly from the mainframe.
-- **🔍 Advanced Holo-Search**: Filter through thousands of titles by category, status, and year with a high-performance search interface.
-- **🖼️ Personnel Records**: Deep-dive into character profiles with auto-parsed statistics and biographies.
+- **🚀 Real-time Discovery**: Instant access to Trending, Most Popular, and Upcoming series directly from the mainframe.
+- **🔍 Advanced Holo-Search**: High-performance filtering by category, status, and year with a state-of-the-art interface.
+- **🖼️ Personnel Dossiers**: Deep-dive into character profiles with auto-parsed statistics, verified affiliations, and detailed biographies.
 - **🛸 Premium Aesthetics**: 
-  - **AuroraText**: Dynamic, animated gradient headers.
-  - **Glassmorphism**: Backdrop blurs and translucent borders for a futuristic feel.
-  - **Cyberpunk Palette**: Curated pink, purple, and blue neon accents.
-- **📱 Fully Responsive**: Optimized for everything from mobile devices to ultra-wide monitors.
-- **⚡ Performance First**: Server-side rendering (SSR) for data fetching and optimized image delivery.
+  - **AuroraText**: Dynamic, animated gradient headers for a futuristic feel.
+  - **Glassmorphism**: Sophisticated backdrop blurs and translucent borders.
+  - **Aesthetic Depth**: Lightened dark-mode backgrounds and refined contrast overlays.
+- **📱 Fluid Typography & Responsiveness**: Optimized with CSS `clamp()` for perfect scaling from mobile devices to ultra-wide monitors.
+- **⚡ Performance Optimized**: Fast server-side data fetching and optimized asset delivery.
 
-## 🛠️ Tech Stack
+## 🛠️ Modern Tech Stack
 
 - **Framework**: [Next.js 16 (App Router)](https://nextjs.org/)
 - **Core**: [React 19](https://reactjs.org/), [TypeScript](https://www.typescriptlang.org/)
 - **Styling**: [Tailwind CSS 4](https://tailwindcss.com/)
 - **Animations**: [Motion (Framer Motion)](https://motion.dev/)
 - **Icons**: [Lucide React](https://lucide.dev/)
-- **UI Components**: [Radix UI](https://www.radix-ui.com/) primitives
+- **UI Components**: [Radix UI](https://www.radix-ui.com/)
 - **Data Source**: [Kitsu API](https://kitsu.io/api/edge)
 
 ## 📂 Project Structure
 
 - `app/`: Next.js App Router pages and dedicated Client Components.
-- `components/`: Atomic UI components, including the modular `AnimeCard`, `CategoryRow`, and `CharacterModal`.
-- `lib/`: Kitsu API wrapper and utility functions.
-- `public/`: High-quality assets and global imagery.
+- `components/`: Atomic UI components, including the modular `AnimeCard`, `CategoryRow`, and `CharacterDetailClient`.
+- `lib/`: Kitsu API wrapper and unified TypeScript type definitions.
+- `public/`: High-quality assets, including `im.png` and `cv7.jpg`.
 
 ## 🚀 Getting Started
 
@@ -58,19 +58,8 @@ A premium, high-tech anime discovery platform built with **Next.js 16**, **Tailw
    npm run dev
    ```
 
-4. **Open the mainframe**:
+4. **Open the interface**:
    Navigate to [http://localhost:3000](http://localhost:3000).
-
-## 🔨 Development Commands
-
-- `npm run dev`: Start development server.
-- `npm run build`: Create an optimized production build.
-- `npm run lint`: Run ESLint for code quality checks.
-- `npm start`: Launch the production server.
-
-## 📜 License
-
-This project is open-source and available under the MIT License.
 
 ---
 

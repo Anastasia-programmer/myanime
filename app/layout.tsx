@@ -9,8 +9,21 @@ const geistSans = { variable: "font-sans" };
 const geistMono = { variable: "font-mono" };
 
 export const metadata: Metadata = {
+  metadataBase: new URL("http://localhost:3000"),
   title: "OTAKUMO - Discover Your Next Favorite Anime",
-  description: "An anime Discovery App built with Next.js and Kitsu API",
+  description: "A premium, high-tech anime discovery platform built with Next.js 16 and Kitsu API. Explore thousands of titles with high-performance search and immersive character dossiers.",
+  openGraph: {
+    title: "OTAKUMO - Discover Your Next Favorite Anime",
+    description: "A premium anime discovery experience.",
+    images: [{ url: "/im.png" }],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "OTAKUMO",
+    description: "Discover Your Next Favorite Anime",
+    images: ["/im.png"],
+  },
 };
 
 export default function RootLayout({

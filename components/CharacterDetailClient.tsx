@@ -83,10 +83,10 @@ export default function CharacterDetailClient({
             {/* Decorative Background Text */}
 
 
-            <div className="flex flex-col md:flex-row gap-12 relative z-10">
+            <div className="flex flex-col lg:flex-row gap-12 relative z-10">
 
               {/* LEFT: CHARACTER IMAGE - Responsive size across viewports */}
-              <div className="w-full md:w-87.5 max-w-[400px] mx-auto md:mx-0 shrink-0">
+              <div className="w-full lg:w-87.5 max-w-[400px] mx-auto lg:mx-0 shrink-0">
                 <div className="top-28">
                   <div className="relative aspect-3/4 rounded-3xl overflow-hidden shadow-2xl border border-white/10 bg-slate-900 group">
                     <div className="absolute -inset-1 bg-linear-to-tr from-pink-600 to-purple-600 opacity-0 group-hover:opacity-20 blur-xl transition-all duration-700" />
