@@ -6,8 +6,10 @@ import AnimeGrid from './AnimeGrid';
 
 const BASE_URL = 'https://kitsu.io/api/edge';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default function AnimeListClient({ initialData }: { initialData: any[] }) {
   const searchParams = useSearchParams();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [animeData, setAnimeData] = useState<any[]>(initialData);
   const [loading, setLoading] = useState(false);
   const isInitialMount = useRef(true);

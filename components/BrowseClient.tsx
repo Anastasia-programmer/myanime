@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useTransition } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { Search, Filter, X, ChevronDown, ChevronUp, SlidersHorizontal } from 'lucide-react';
+import { Search, Filter, X, ChevronDown, SlidersHorizontal } from 'lucide-react';
 import AnimeGrid from './AnimeGrid';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
@@ -25,11 +25,19 @@ const currentYear = new Date().getFullYear();
 const YEARS = Array.from({ length: 30 }, (_, i) => String(currentYear - i));
 
 interface BrowseClientProps {
-    initialAnime: any[]; // Using any for Kitsu response shape for now
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    initialAnime: any[];
+}
+
+interface FilterSelectProps {
+    label: string;
+    value: string;
+    onChange: (val: string) => void;
+    options: string[];
 }
 
 // Helper for select dropdowns
-function FilterSelect({ label, value, onChange, options }: any) {
+function FilterSelect({ label, value, onChange, options }: FilterSelectProps) {
     return (
         <div className="flex flex-col gap-1.5">
             <label className="text-[10px] uppercase font-bold text-white/60 tracking-wider pl-1">{label}</label>
@@ -275,7 +283,7 @@ export default function BrowseClient({ initialAnime }: BrowseClientProps) {
                             </div>
                         </div>
 
-                        <div className="min-h-[500px]">
+                        <div className="min-h-125">
                             <AnimeGrid animeList={initialAnime || []} />
                         </div>
                     </div>

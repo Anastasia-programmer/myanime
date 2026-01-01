@@ -28,7 +28,7 @@ export default function AnimeCard({ anime }: AnimeCardProps) {
       <div className="relative overflow-hidden  rounded-xl bg-[#020617] border border-white/5 shadow-lg transition-all duration-300 hover:shadow-[0_0_30px_rgba(59,130,246,0.2)] hover:scale-[1.02] hover:border-blue-500/50">
 
         {/* Image Section */}
-        <div className="relative aspect-[2/3] w-full overflow-hidden">
+        <div className="relative aspect-2/3 w-full overflow-hidden">
           {posterImage?.large ? (
             <Image
               src={posterImage.large}

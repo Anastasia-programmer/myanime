@@ -45,7 +45,7 @@ export default function AnimeFilters() {
   return (
     <div className="relative w-full max-w-8xl mx-auto mb-12 group">
       {/* Background Glow */}
-      <div className="absolute -inset-1 bg-gradient-to-r from-blue-600/10 via-purple-600/10 to-blue-600/10 rounded-2xl blur-xl opacity-50 pointer-events-none" />
+      <div className="absolute -inset-1 bg-linear-to-r from-blue-600/10 via-purple-600/10 to-blue-600/10 rounded-2xl blur-xl opacity-50 pointer-events-none" />
 
       <form onSubmit={handleApply} className="relative bg-[#020617]/60 backdrop-blur-2xl border border-white/10 p-6 rounded-2xl shadow-2xl">
         

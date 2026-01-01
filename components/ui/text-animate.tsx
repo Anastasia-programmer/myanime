@@ -302,6 +302,17 @@ const defaultItemAnimationVariants: Record<
   },
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const MotionComponents = new Map<ElementType, React.ComponentType<any>>();
+
+const getMotionComponent = (Component: ElementType) => {
+  if (!MotionComponents.has(Component)) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    MotionComponents.set(Component, motion.create(Component as React.ComponentType<any>));
+  }
+  return MotionComponents.get(Component)!;
+};
+
 const TextAnimateBase = ({
   children,
   delay = 0,
@@ -317,7 +328,7 @@ const TextAnimateBase = ({
   accessible = true,
   ...props
 }: TextAnimateProps) => {
-  const MotionComponent = motion.create(Component)
+  const MotionComponent = getMotionComponent(Component);
 
   let segments: string[] = []
   switch (by) {
@@ -338,49 +349,50 @@ const TextAnimateBase = ({
 
   const finalVariants = variants
     ? {
+      container: {
+        hidden: { opacity: 0 },
+        show: {
+          opacity: 1,
+          transition: {
+            opacity: { duration: 0.01, delay },
+            delayChildren: delay,
+            staggerChildren: duration / segments.length,
+          },
+        },
+        exit: {
+          opacity: 0,
+          transition: {
+            staggerChildren: duration / segments.length,
+            staggerDirection: -1,
+          },
+        },
+      },
+      item: variants,
+    }
+    : animation
+      ? {
         container: {
-          hidden: { opacity: 0 },
+          ...defaultItemAnimationVariants[animation].container,
           show: {
-            opacity: 1,
+            ...defaultItemAnimationVariants[animation].container.show,
             transition: {
-              opacity: { duration: 0.01, delay },
               delayChildren: delay,
               staggerChildren: duration / segments.length,
             },
           },
           exit: {
-            opacity: 0,
+            ...defaultItemAnimationVariants[animation].container.exit,
             transition: {
               staggerChildren: duration / segments.length,
               staggerDirection: -1,
             },
           },
         },
-        item: variants,
+        item: defaultItemAnimationVariants[animation].item,
       }
-    : animation
-      ? {
-          container: {
-            ...defaultItemAnimationVariants[animation].container,
-            show: {
-              ...defaultItemAnimationVariants[animation].container.show,
-              transition: {
-                delayChildren: delay,
-                staggerChildren: duration / segments.length,
-              },
-            },
-            exit: {
-              ...defaultItemAnimationVariants[animation].container.exit,
-              transition: {
-                staggerChildren: duration / segments.length,
-                staggerDirection: -1,
-              },
-            },
-          },
-          item: defaultItemAnimationVariants[animation].item,
-        }
       : { container: defaultContainerVariants, item: defaultItemVariants }
 
+  /* eslint-disable react-hooks/static-components */
   return (
     <AnimatePresence mode="popLayout">
       <MotionComponent

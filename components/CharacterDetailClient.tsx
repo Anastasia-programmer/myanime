@@ -1,16 +1,16 @@
 'use client';
 
+import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Info, Sparkles, Calendar, Users, ChevronLeft, Shield, Zap, Target } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { Calendar, User, Shield, Zap, Target, Activity, ChevronLeft, Info } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { AuroraText } from '@/components/ui/aurora-text';
 
 interface CharacterDetailClientProps {
   characterName: string;
   characterImage: string | null;
   animeTitle: string;
-  animeBackgroundImage: string | null;
   animeId: string;
   personalStats: { label: string; value: string }[];
   professionalStats: { label: string; value: string }[];
@@ -22,13 +22,14 @@ export default function CharacterDetailClient({
   characterName,
   characterImage,
   animeTitle,
-  animeBackgroundImage,
   animeId,
   personalStats,
   professionalStats,
   otherStats,
   bio,
 }: CharacterDetailClientProps) {
+  const [isBioExpanded, setIsBioExpanded] = useState(false);
+
 
   const getStatIcon = (label: string) => {
     const l = label.toLowerCase();
@@ -38,147 +39,167 @@ export default function CharacterDetailClient({
     return <Target className="w-4 h-4" />;
   };
 
-  // Logic to determine which tabs to show
   const hasPersonal = personalStats && personalStats.length > 0;
   const hasProfessional = professionalStats && professionalStats.length > 0;
   const hasOther = otherStats && otherStats.length > 0;
-
-  // Determine which tab should be active by default
   const defaultTab = hasPersonal ? "personal" : hasProfessional ? "professional" : "other";
-
-  // If no stats at all, we'll handle that too
   const hasAnyStats = hasPersonal || hasProfessional || hasOther;
 
   return (
-    <div className="relative min-h-screen bg-[#111] text-slate-200 selection:bg-[#FBBF24]/30 overflow-x-hidden">
+    <div className="relative min-h-screen bg-[#020617] text-slate-200 selection:bg-pink-500/30 overflow-x-hidden font-sans">
 
-      {/* --- BACKGROUND ELEMENTS --- */}
+      {/* 1. Global Background Layer */}
       <div className="fixed inset-0 z-0">
         <Image
-          src={animeBackgroundImage || "/cv7.jpg"}
+          src="/cv7.jpg"
           alt="Background"
           fill
-          className="object-cover opacity-10 scale-110 blur-[2px]"
+          className="object-cover opacity-40"
           priority
         />
-        <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-[#FBBF24]/10 rounded-full blur-[120px] animate-pulse" />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-orange-600/5 rounded-full blur-[120px]" />
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px]"></div>
+        <div className="absolute inset-0 bg-linear-to-b from-[#020617]/60 via-[#020617]/90 to-[#020617]" />
+        {/* Subtle Grid Overlay */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-size[40px_40px]" />
       </div>
 
-      <div className="relative z-10">
-        <nav className="container mx-auto px-6 py-8">
-          <Link
-            href={`/anime/${animeId}`}
-            className="group inline-flex items-center gap-2 text-slate-400 hover:text-white transition-all duration-300"
-          >
-            <div className="p-2 rounded-full bg-white/5 border border-white/10 group-hover:border-[#FBBF24]/50 group-hover:bg-[#FBBF24]/10 transition-all">
-              <ChevronLeft className="w-4 h-4" />
-            </div>
-            <span className="text-xs uppercase tracking-[0.3em] font-bold">Back to Database</span>
-          </Link>
-        </nav>
+      <div className="relative z-10 pt-28 pb-20">
+        <main className="container mx-auto px-6 lg:px-12">
 
-        <main className="container mx-auto px-6 pb-24">
-          <div className="grid lg:grid-cols-12 gap-12 items-start">
+          {/* Breadcrumbs / Return Link */}
+          <nav className="mb-10">
+            <Link
+              href={`/anime/${animeId}`}
+              className="group inline-flex items-center gap-3 text-slate-400 hover:text-white transition-all duration-300"
+            >
+              <div className="p-2.5 rounded-xl bg-white/5 border border-white/10 group-hover:border-pink-500/50 group-hover:bg-pink-500/10 transition-all">
+                <ChevronLeft className="w-4 h-4" />
+              </div>
+              <span className="text-[10px] uppercase tracking-[0.4em] font-black italic">Back to Archive</span>
+            </Link>
+          </nav>
 
-            {/* LEFT COLUMN: Image */}
-            <div className="lg:col-span-5 sticky top-8">
-              <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }}>
-                <div className="relative z-10 group">
-                  <div className="absolute -inset-1 bg-gradient-to-tr from-[#FBBF24] to-orange-500 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
-                  <div className="relative aspect-[3/4] rounded-2xl overflow-hidden border border-white/10 bg-zinc-900">
+          {/* Main Info Card */}
+          <div className="bg-[#030712]/60 border border-white/10 backdrop-blur-2xl rounded-[2.5rem] p-8 lg:p-12 shadow-2xl overflow-hidden relative mb-16">
+            {/* Decorative Background Text */}
+
+
+            <div className="flex flex-col sm:flex-row gap-12 relative z-10">
+
+              {/* LEFT: CHARACTER IMAGE - Fixed size across viewports */}
+              <div className="w-70 sm:w-87.5 mx-auto lg:mx-0 shrink-0">
+                <div className="top-28">
+                  <div className="relative aspect-3/4 rounded-3xl overflow-hidden shadow-2xl border border-white/10 bg-slate-900 group">
+                    <div className="absolute -inset-1 bg-linear-to-tr from-pink-600 to-purple-600 opacity-0 group-hover:opacity-20 blur-xl transition-all duration-700" />
+
                     {characterImage ? (
-                      <Image src={characterImage} alt={characterName} fill className="object-cover transition-transform duration-700 group-hover:scale-105" priority />
+                      <Image
+                        src={characterImage}
+                        alt={characterName}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-700"
+                        priority
+                      />
                     ) : (
-                      <div className="w-full h-full flex items-center justify-center"><Users className="w-20 h-20 text-slate-800" /></div>
+                      <div className="w-full h-full flex items-center justify-center text-slate-700">
+                        <User className="w-16 h-16" />
+                      </div>
                     )}
+                    <div className="absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent opacity-60" />
                   </div>
-                  <div className="absolute -bottom-4 -right-4">
-                    <div className="bg-[#FBBF24] text-black px-6 py-3 rounded-xl shadow-2xl border border-yellow-400/50 flex flex-col">
-                      <span className="text-[10px] uppercase tracking-tighter opacity-80 font-bold">Featured In</span>
-                      <span className="text-sm font-black italic uppercase whitespace-nowrap">{animeTitle}</span>
+
+                  <div className="mt-6 p-4 bg-white/5 border border-white/10 rounded-2xl backdrop-blur-md">
+                    <div className="flex flex-col items-center gap-1">
+                      <span className="text-[8px] uppercase tracking-[0.4em] text-pink-500 font-black">Primary Affiliation</span>
+                      <span className="text-xs font-black italic uppercase text-white tracking-widest text-center">{animeTitle}</span>
                     </div>
                   </div>
                 </div>
-              </motion.div>
-            </div>
+              </div>
 
-            {/* RIGHT COLUMN: Info */}
-            <div className="lg:col-span-7 space-y-10">
-              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-2">
-                <div className="flex items-center gap-3">
-                  <div className="h-[2px] w-12 bg-[#FBBF24]" />
-                  <span className="text-[#FBBF24] font-mono tracking-[0.4em] uppercase text-xs font-bold">Character Profile</span>
+              {/* RIGHT: DATA & STATS */}
+              <div className="flex-1 space-y-10">
+                <div className="space-y-6">
+                  <div className="flex items-center gap-3">
+                    <Activity className="text-pink-500 w-4 h-4" />
+                    <span className="text-blue-400 font-mono text-[10px] font-black uppercase tracking-[0.4em]">Verified Personnel Record</span>
+                  </div>
+
+                  <h1 className="text-5xl lg:text-6xl font-black text-white uppercase italic tracking-tighter leading-[0.85]">
+                    <AuroraText colors={['#FF0080', '#7928CA', '#38bdf8', '#FF0080']}>{characterName}</AuroraText>
+                  </h1>
                 </div>
-                <h1 className="text-6xl font-black uppercase italic tracking-tighter text-white">
-                  {characterName}
-                </h1>
-              </motion.div>
 
-              {/* TABS SECTION WITH CONDITIONAL RENDERING */}
-              {hasAnyStats ? (
-                <div className="w-full">
-                  <Tabs defaultValue={defaultTab} className="w-full">
-                    <TabsList className="bg-white/5 border border-white/10 p-1 mb-6">
-                      {hasPersonal && (
-                        <TabsTrigger value="personal" className="data-[state=active]:bg-[#FBBF24] data-[state=active]:text-black tracking-widest uppercase text-[10px] font-bold">Personal</TabsTrigger>
-                      )}
-                      {hasProfessional && (
-                        <TabsTrigger value="professional" className="data-[state=active]:bg-[#FBBF24] data-[state=active]:text-black tracking-widest uppercase text-[10px] font-bold">Professional</TabsTrigger>
-                      )}
-                      {hasOther && (
-                        <TabsTrigger value="other" className="data-[state=active]:bg-[#FBBF24] data-[state=active]:text-black tracking-widest uppercase text-[10px] font-bold">Details</TabsTrigger>
-                      )}
-                    </TabsList>
+                {/* TABS SECTION */}
+                {hasAnyStats ? (
+                  <div className="w-full">
+                    <Tabs defaultValue={defaultTab} className="w-full">
+                      <TabsList className="bg-white/5 border border-white/10 p-1 mb-8 rounded-2xl h-auto flex flex-wrap gap-1">
+                        {hasPersonal && (
+                          <TabsTrigger value="personal" className="flex-1 data-[state=active]:bg-gradient-to-r data-[state=active]:from-pink-600 data-[state=active]:to-purple-600 data-[state=active]:text-white tracking-[0.2em] uppercase text-[9px] font-black py-3 rounded-xl transition-all duration-300">
+                            Personal
+                          </TabsTrigger>
+                        )}
+                        {hasProfessional && (
+                          <TabsTrigger value="professional" className="flex-1 data-[state=active]:bg-gradient-to-r data-[state=active]:from-pink-600 data-[state=active]:to-purple-600 data-[state=active]:text-white tracking-[0.2em] uppercase text-[9px] font-black py-3 rounded-xl transition-all duration-300">
+                            Professional
+                          </TabsTrigger>
+                        )}
+                        {hasOther && (
+                          <TabsTrigger value="other" className="flex-1 data-[state=active]:bg-gradient-to-r data-[state=active]:from-pink-600 data-[state=active]:to-purple-600 data-[state=active]:text-white tracking-[0.2em] uppercase text-[9px] font-black py-3 rounded-xl transition-all duration-300">
+                            Additional
+                          </TabsTrigger>
+                        )}
+                      </TabsList>
 
-                    <AnimatePresence mode="wait">
-                      {hasPersonal && (
-                        <TabsContent key="personal-tab" value="personal" className="grid grid-cols-2 gap-4 outline-none">
-                          {personalStats.map((stat, i) => (
-                            <StatCard key={`personal-${i}`} stat={stat} icon={getStatIcon(stat.label)} delay={i} />
-                          ))}
-                        </TabsContent>
-                      )}
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {hasPersonal && (
+                          <TabsContent value="personal" className="contents">
+                            {personalStats.map((stat, i) => (
+                              <StatCard key={`personal-${i}`} stat={stat} icon={getStatIcon(stat.label)} />
+                            ))}
+                          </TabsContent>
+                        )}
+                        {hasProfessional && (
+                          <TabsContent value="professional" className="contents">
+                            {professionalStats.map((stat, i) => (
+                              <StatCard key={`prof-${i}`} stat={stat} icon={getStatIcon(stat.label)} />
+                            ))}
+                          </TabsContent>
+                        )}
+                        {hasOther && (
+                          <TabsContent value="other" className="contents">
+                            {otherStats.map((stat, i) => (
+                              <StatCard key={`other-${i}`} stat={stat} icon={getStatIcon(stat.label)} />
+                            ))}
+                          </TabsContent>
+                        )}
+                      </div>
+                    </Tabs>
+                  </div>
+                ) : null}
 
-                      {hasProfessional && (
-                        <TabsContent key="professional-tab" value="professional" className="grid grid-cols-2 gap-4 outline-none">
-                          {professionalStats.map((stat, i) => (
-                            <StatCard key={`prof-${i}`} stat={stat} icon={getStatIcon(stat.label)} delay={i} />
-                          ))}
-                        </TabsContent>
-                      )}
+                {/* BIO SECTION */}
+                <div className="relative pt-8 border-t border-white/5">
+                  <h3 className="text-[10px] font-black uppercase tracking-[0.4em] text-pink-500/60 mb-6 flex items-center gap-3">
+                    <Info className="w-4 h-4" /> Intelligence Summary
+                  </h3>
 
-                      {hasOther && (
-                        <TabsContent key="other-tab" value="other" className="grid grid-cols-2 gap-4 outline-none">
-                          {otherStats.map((stat, i) => (
-                            <StatCard key={`other-${i}`} stat={stat} icon={getStatIcon(stat.label)} delay={i} />
-                          ))}
-                        </TabsContent>
-                      )}
-                    </AnimatePresence>
-                  </Tabs>
+                  <div className="relative">
+                    <p className={`text-slate-100 leading-relaxed text-lg font-normal selection:bg-pink-500/50 transition-all duration-500 ${!isBioExpanded ? 'line-clamp-4' : ''}`}>
+                      {bio || "Archives show no available summary for this operative."}
+                    </p>
+
+                    {bio && bio.length > 200 && (
+                      <button
+                        onClick={() => setIsBioExpanded(!isBioExpanded)}
+                        className="mt-6 text-[10px] font-black uppercase tracking-widest text-pink-500 hover:text-white transition-colors border-b border-pink-500/20 pb-1"
+                      >
+                        {isBioExpanded ? 'Collapse Archive' : 'Read Full History'}
+                      </button>
+                    )}
+                  </div>
                 </div>
-              ) : null}
-
-              {/* BIO */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4 }}
-                className="relative p-8 rounded-3xl bg-white/[0.02] border border-white/5 backdrop-blur-md overflow-hidden"
-              >
-                <div className="absolute top-0 right-0 p-4 opacity-10"><Sparkles className="w-12 h-12 text-[#FBBF24]" /></div>
-                <h3 className="text-xl font-black italic uppercase text-white mb-6 flex items-center gap-3">
-                  <Info className="w-5 h-5 text-[#FBBF24]" />
-                  Archive History
-                </h3>
-                <div className="prose prose-invert max-w-none">
-                  <p className="text-slate-400 leading-relaxed text-lg font-light first-letter:text-5xl first-letter:font-black first-letter:text-[#FBBF24] first-letter:mr-3 first-letter:float-left">
-                    {bio || "No biography available in the current archive records."}
-                  </p>
-                </div>
-              </motion.div>
+              </div>
             </div>
           </div>
         </main>
@@ -187,19 +208,23 @@ export default function CharacterDetailClient({
   );
 }
 
-function StatCard({ stat, icon, delay }: { stat: { label: string, value: string }, icon: React.ReactNode, delay: number }) {
+function StatCard({ stat, icon }: { stat: { label: string, value: string }, icon: React.ReactNode }) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 0.05 * delay }}
-      className="group relative p-4 rounded-xl bg-white/[0.03] border border-white/5 hover:border-[#FBBF24]/50 hover:bg-[#FBBF24]/[0.05] transition-all duration-300"
-    >
-      <div className="flex items-center gap-3 mb-2">
-        <div className="p-2 rounded-lg bg-[#FBBF24]/10 text-[#FBBF24] group-hover:scale-110 transition-transform">{icon}</div>
-        <span className="text-[10px] uppercase tracking-[0.2em] font-black text-slate-500 group-hover:text-[#FBBF24] transition-colors">{stat.label}</span>
+    <div className="group relative p-5 rounded-2xl bg-white/3 border border-white/5 hover:border-pink-500/30 hover:bg-pink-500/3 transition-all duration-300">
+      <div className="flex items-center gap-4 mb-3">
+        <div className="p-2 rounded-lg bg-pink-500/10 text-pink-500 group-hover:scale-110 transition-transform duration-300">
+          {icon}
+        </div>
+        <span className="text-[9px] uppercase tracking-[0.2em] font-black text-slate-500">
+          {stat.label}
+        </span>
       </div>
-      <div className="text-lg font-bold text-white pl-1 font-mono">{stat.value}</div>
-    </motion.div>
+      <div className="text-base font-bold text-white pl-1 tracking-wide italic">
+        {stat.value}
+      </div>
+
+      {/* Active Line Decoration */}
+      <div className="absolute bottom-0 left-5 right-5 h-px bg-linear-to-r from-transparent via-pink-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+    </div>
   );
 }

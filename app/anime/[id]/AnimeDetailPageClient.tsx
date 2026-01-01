@@ -4,10 +4,19 @@ import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { AuroraText } from '@/components/ui/aurora-text';
-import { ShimmerButton } from '@/components/ui/shimmer-button';
-import { Play, Star, ChevronRight, User, Activity, Clock, Layers, Info, Users } from 'lucide-react';
+import { Play, Star, User, Activity, Clock, Layers, Info, Users } from 'lucide-react';
 
-export default function AnimeDetailPageClient({ anime, categories, characters, id }: any) {
+interface AnimeDetailPageClientProps {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    anime: any;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    categories: any;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    characters: any;
+    id: string;
+}
+
+export default function AnimeDetailPageClient({ anime, categories, characters, id }: AnimeDetailPageClientProps) {
     const [showAllCharacters, setShowAllCharacters] = useState(false);
     const [isSynopsisExpanded, setIsSynopsisExpanded] = useState(false);
 
@@ -15,11 +24,11 @@ export default function AnimeDetailPageClient({ anime, categories, characters, i
 
     const {
         canonicalTitle, posterImage, synopsis, status,
-        showType, episodeCount, episodeLength, titles,
+        episodeCount, episodeLength, titles,
         averageRating, youtubeVideoId
     } = anime.attributes;
 
-    const allCharacters = (characters?.included || []).filter((item: any) => item.type === 'characters');
+    const allCharacters = (characters?.included || []).filter((item: { type: string }) => item.type === 'characters');
     const displayedCharacters = showAllCharacters ? allCharacters : allCharacters.slice(0, 4);
     const ratingValue = parseFloat(averageRating || '0') / 10;
 
@@ -68,11 +77,11 @@ export default function AnimeDetailPageClient({ anime, categories, characters, i
 
                                 <div className="mt-8 space-y-4">
                                     {youtubeVideoId ? (
-                                        <Link href={`https://www.youtube.com/watch?v=${youtubeVideoId}`} target="_blank">
-                                            <ShimmerButton className="w-full h-16 rounded-2xl flex items-center justify-center gap-3">
-                                                <Play className="w-5 h-5 fill-current" />
-                                                <span className="font-black uppercase italic tracking-widest text-sm">Watch Trailer</span>
-                                            </ShimmerButton>
+                                        <Link href={`https://www.youtube.com/watch?v=${youtubeVideoId}`} target="_blank" className="block w-full">
+                                            <button className="w-full h-16 rounded-2xl flex items-center justify-center gap-3 bg-gradient-to-r from-pink-600 to-purple-700 hover:from-pink-500 hover:to-purple-600 text-white transition-all duration-300 shadow-[0_0_20px_rgba(236,72,153,0.2)] cursor-pointer active:scale-[0.98] group">
+                                                <Play className="w-5 h-5 fill-current group-hover:scale-110 transition-transform duration-300" />
+                                                <span className="font-black uppercase italic tracking-widest text-sm drop-shadow-sm">Watch Trailer</span>
+                                            </button>
                                         </Link>
                                     ) : (
                                         <div className="w-full h-16 rounded-2xl border border-white/5 bg-white/5 flex items-center justify-center text-white/20 font-black uppercase tracking-widest text-sm">
@@ -98,7 +107,7 @@ export default function AnimeDetailPageClient({ anime, categories, characters, i
                                     <div className="flex flex-wrap items-center gap-4">
                                         <div className="flex items-center gap-2 px-4 py-2 bg-yellow-500/10 border border-yellow-500/40 rounded-xl text-yellow-400">
                                             <Star className="w-4 h-4 fill-current" />
-                                            <span className="font-bold font-mono text-base">{ratingValue.toFixed(1)}</span>
+                                            <span className="font-bold font-mono text-xs">{ratingValue.toFixed(1)}</span>
                                         </div>
                                         <div className="flex items-center gap-2 px-4 py-2 bg-pink-500/10 border border-pink-500/40 rounded-xl text-pink-400">
                                             <Layers className="w-4 h-4" />
@@ -117,7 +126,7 @@ export default function AnimeDetailPageClient({ anime, categories, characters, i
                                 {/* Categories */}
                                 {categories?.length > 0 && (
                                     <div className="flex flex-wrap gap-2">
-                                        {categories.slice(0, 6).map((cat: any) => (
+                                        {categories.slice(0, 6).map((cat: { id: string; attributes: { title: string } }) => (
                                             <span key={cat.id} className="text-[9px] font-black uppercase tracking-widest px-3 py-1.5 bg-white/[0.03] border border-white/10 rounded-lg text-slate-400 hover:text-pink-400 transition-colors">
                                                 {cat.attributes.title}
                                             </span>
@@ -170,7 +179,8 @@ export default function AnimeDetailPageClient({ anime, categories, characters, i
                         </div>
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                            {displayedCharacters.map((item: any) => {
+                            {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                            {displayedCharacters.map((item: { id: string; attributes: any; relationships?: any }) => {
                                 const charAttr = item.attributes;
                                 const charImg = item.relationships?.character?.attributes?.image?.original || charAttr?.image?.original;
                                 return (

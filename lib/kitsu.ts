@@ -14,15 +14,15 @@ type AnimeFilters = {
 };
 
 // Helper function to create timeout signal
-function createTimeoutSignal(timeoutMs: number): AbortSignal {
+const createTimeoutSignal = (ms: number): AbortSignal => {
     if (typeof AbortSignal !== 'undefined' && 'timeout' in AbortSignal) {
-        return (AbortSignal as any).timeout(timeoutMs);
+        return (AbortSignal as { timeout: (ms: number) => AbortSignal }).timeout(ms);
     }
     // Fallback for environments without AbortSignal.timeout
     const controller = new AbortController();
-    setTimeout(() => controller.abort(), timeoutMs);
+    setTimeout(() => controller.abort(), ms);
     return controller.signal;
-}
+};
 
 export async function getAnimeList(filters: AnimeFilters = {}) {
     try {
@@ -80,12 +80,13 @@ export async function getAnimeList(filters: AnimeFilters = {}) {
         }
 
         return res.json();
-    } catch (error: any) {
-        console.error('Error fetching anime list:', error);
-        if (error.name === 'AbortError' || error.code === 'ENOTFOUND' || error.cause?.code === 'ENOTFOUND') {
+    } catch (error: unknown) {
+        const err = error as Error & { code?: string; cause?: { code?: string } };
+        console.error('Error fetching anime list:', err);
+        if (err.name === 'AbortError' || err.code === 'ENOTFOUND' || err.cause?.code === 'ENOTFOUND') {
             throw new Error('Network error: Unable to connect to Kitsu API. Please check your internet connection.');
         }
-        throw error;
+        throw err;
     }
 }
 
@@ -101,12 +102,13 @@ export async function getAnimeById(id: string) {
         }
 
         return res.json();
-    } catch (error: any) {
-        console.error('Error fetching anime by ID:', error);
-        if (error.name === 'AbortError' || error.code === 'ENOTFOUND' || error.cause?.code === 'ENOTFOUND') {
+    } catch (error: unknown) {
+        const err = error as Error & { code?: string; cause?: { code?: string } };
+        console.error('Error fetching anime by ID:', err);
+        if (err.name === 'AbortError' || err.code === 'ENOTFOUND' || err.cause?.code === 'ENOTFOUND') {
             throw new Error('Network error: Unable to connect to Kitsu API. Please check your internet connection.');
         }
-        throw error;
+        throw err;
     }
 }
 
@@ -124,12 +126,13 @@ export async function getAnimeCharacters(animeId: string) {
         }
 
         return res.json();
-    } catch (error: any) {
-        console.error('Error fetching anime characters:', error);
-        if (error.name === 'AbortError' || error.code === 'ENOTFOUND' || error.cause?.code === 'ENOTFOUND') {
+    } catch (error: unknown) {
+        const err = error as Error & { code?: string; cause?: { code?: string } };
+        console.error('Error fetching anime characters:', err);
+        if (err.name === 'AbortError' || err.code === 'ENOTFOUND' || err.cause?.code === 'ENOTFOUND') {
             throw new Error('Network error: Unable to connect to Kitsu API. Please check your internet connection.');
         }
-        throw error;
+        throw err;
     }
 }
 
@@ -145,11 +148,12 @@ export async function getCharacterById(characterId: string) {
         }
 
         return res.json();
-    } catch (error: any) {
-        console.error('Error fetching character by ID:', error);
-        if (error.name === 'AbortError' || error.code === 'ENOTFOUND' || error.cause?.code === 'ENOTFOUND') {
+    } catch (error: unknown) {
+        const err = error as Error & { code?: string; cause?: { code?: string } };
+        console.error('Error fetching character by ID:', err);
+        if (err.name === 'AbortError' || err.code === 'ENOTFOUND' || err.cause?.code === 'ENOTFOUND') {
             throw new Error('Network error: Unable to connect to Kitsu API. Please check your internet connection.');
         }
-        throw error;
+        throw err;
     }
 }

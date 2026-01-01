@@ -2,14 +2,8 @@ import { getAnimeById, getAnimeCharacters } from '@/lib/kitsu';
 import { notFound } from 'next/navigation';
 import AnimeDetailPageClient from './AnimeDetailPageClient';
 
-interface PageProps {
-  params: Promise<{
-    id: string;
-  }>;
-}
-
-export default async function AnimeDetailPage({ params }: PageProps) {
-  const { id } = await params;
+export default async function AnimePage(props: { params: Promise<{ id: string }> }) {
+  const { id } = await props.params;
 
   let anime;
   let categories;
@@ -18,7 +12,7 @@ export default async function AnimeDetailPage({ params }: PageProps) {
   try {
     const animeResponse = await getAnimeById(id);
     anime = animeResponse.data;
-    categories = (animeResponse.included || []).filter((item: any) => item.type === 'categories');
+    categories = (animeResponse.included || []).filter((item: { type: string }) => item.type === 'categories');
 
     // Fetch characters
     const charactersResponse = await getAnimeCharacters(id);

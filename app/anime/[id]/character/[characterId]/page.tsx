@@ -40,7 +40,6 @@ export default async function CharacterDetailPage({ params }: PageProps) {
   const characterName = name || canonicalName || 'Unknown Character';
   const characterImage = image?.original || image?.large;
   const animeTitle = anime?.attributes?.canonicalTitle || 'Unknown Anime';
-  const animeBackgroundImage = anime?.attributes?.posterImage?.large || anime?.attributes?.posterImage?.original || null;
 
   // Parse character description to extract stats and bio
   const parseDescription = (text: string | null) => {
@@ -48,7 +47,6 @@ export default async function CharacterDetailPage({ params }: PageProps) {
 
     const personalKeys = ["Age", "Birthdate", "Birthday", "Height", "Weight", "Gender", "Blood Type"];
     const professionalKeys = ["Position", "Rank", "Occupation", "Class", "Seat Number", "Affiliation", "Grade", "Weapon", "Squad", "Team"];
-    const otherKeys = ["Species", "Status", "Abilities", "Favorite subject", "Least favorite subject", "Favorite food", "Hobby", "Hobbies", "Likes", "Dislikes", "Race"];
 
     // Explicit list from user request to ensure everything is caught, merged into the categories above
     // actually, let's just make sure all keys are covered in the regex.
@@ -114,13 +112,11 @@ export default async function CharacterDetailPage({ params }: PageProps) {
       characterName={characterName}
       characterImage={characterImage}
       animeTitle={animeTitle}
-      animeBackgroundImage={animeBackgroundImage}
       animeId={animeId}
       personalStats={personalStats}
       professionalStats={professionalStats}
       otherStats={otherStats}
-      bio={bio || description || ""}
+      bio={bio}
     />
   );
 }
-

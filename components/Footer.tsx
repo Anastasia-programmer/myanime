@@ -34,7 +34,7 @@ const Footer = () => {
             <p className="text-xs font-bold uppercase tracking-[0.3em] text-white/30">
               © 2025 OTAKUMO — DESIGNED FOR ANIME FANS
             </p>
-            <div className="h-px w-12 bg-gradient-to-r from-transparent via-pink-500/50 to-transparent" />
+            <div className="h-px w-12 bg-linear-to-r from-transparent via-pink-500/50 to-transparent" />
           </div>
         </div>
       </div>

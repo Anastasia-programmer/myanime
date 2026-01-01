@@ -36,7 +36,7 @@ const Navbar = () => {
   return (
     <>
       <div
-        className={`fixed top-0 left-0 right-0 z-[60] transition-all duration-500 ${
+        className={`fixed top-0 left-0 right-0 z-60 transition-all duration-500 ${
           isScrolled
             ? 'bg-[#030014]/80 backdrop-blur-xl border-b border-white/10 py-3'
             : 'bg-transparent py-5'
@@ -44,7 +44,7 @@ const Navbar = () => {
       >
         <nav className="container mx-auto px-6 flex items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="group flex items-center gap-2 relative z-[70]">
+          <Link href="/" className="group flex items-center gap-2 relative z-70">
             <div className="relative">
               <div className="absolute inset-0 bg-pink-500 blur-lg opacity-20 group-hover:opacity-40 transition-opacity" />
               <Swords className="w-7 h-7 text-[#FF0080] relative z-10 fill-pink-500/20" />
@@ -76,7 +76,7 @@ const Navbar = () => {
           {/* Mobile Menu Toggle */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="lg:hidden relative z-[70] p-2 bg-white/5 hover:bg-white/10 rounded-xl border border-white/10 text-white transition-all active:scale-90"
+            className="lg:hidden relative z-70 p-2 bg-white/5 hover:bg-white/10 rounded-xl border border-white/10 text-white transition-all active:scale-90"
           >
             {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
@@ -102,7 +102,7 @@ const Navbar = () => {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="fixed top-0 right-0 bottom-0 w-[280px] z-50 bg-[#030014] border-l border-white/10 shadow-2xl lg:hidden p-6 pt-24"
+              className="fixed top-0 right-0 bottom-0 w-70 z-50 bg-[#030014] border-l border-white/10 shadow-2xl lg:hidden p-6 pt-24"
             >
               <div className="flex flex-col gap-2">
                 <p className="text-[10px] font-black uppercase tracking-[0.3em] text-white/30 mb-4 px-4">Navigation</p>
@@ -133,7 +133,7 @@ const Navbar = () => {
               </div>
 
               {/* Bottom Decoration */}
-              <div className="absolute bottom-10 left-6 right-6 p-6 rounded-3xl bg-gradient-to-br from-pink-500/10 to-purple-500/10 border border-white/5">
+              <div className="absolute bottom-10 left-6 right-6 p-6 rounded-3xl bg-linear-to-br from-pink-500/10 to-purple-500/10 border border-white/5">
                 <p className="text-[10px] text-white/40 uppercase tracking-widest leading-relaxed">
                   Join the community and track your favorite chronicles.
                 </p>
