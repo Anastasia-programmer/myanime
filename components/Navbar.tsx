@@ -36,11 +36,10 @@ const Navbar = () => {
   return (
     <>
       <div
-        className={`fixed top-0 left-0 right-0 z-60 transition-all duration-500 ${
-          isScrolled
-            ? 'bg-[#030014]/80 backdrop-blur-xl border-b border-white/10 py-3'
-            : 'bg-transparent py-5'
-        }`}
+        className={`fixed top-0 left-0 right-0 z-60 transition-all duration-500 ${isScrolled
+          ? 'bg-[#030014]/80 backdrop-blur-xl border-b border-white/10 py-3'
+          : 'bg-transparent py-5'
+          }`}
       >
         <nav className="container mx-auto px-6 flex items-center justify-between">
           {/* Logo */}
@@ -62,9 +61,8 @@ const Navbar = () => {
                 <Link
                   key={item.name}
                   href={item.href}
-                  className={`relative text-xs font-bold uppercase tracking-[0.2em] transition-colors group ${
-                    isActive ? 'text-white' : 'text-white/60 hover:text-white'
-                  }`}
+                  className={`relative text-xs font-bold uppercase tracking-[0.2em] transition-colors group ${isActive ? 'text-white' : 'text-white/60 hover:text-white'
+                    }`}
                 >
                   {item.name}
                   <span className={`absolute -bottom-1 left-0 h-0.5 bg-pink-500 transition-all duration-300 ${isActive ? 'w-full' : 'w-0 group-hover:w-full'}`} />
@@ -105,8 +103,8 @@ const Navbar = () => {
               className="fixed top-0 right-0 bottom-0 w-70 z-50 bg-[#030014] border-l border-white/10 shadow-2xl lg:hidden p-6 pt-24"
             >
               <div className="flex flex-col gap-2">
-                <p className="text-[10px] font-black uppercase tracking-[0.3em] text-white/30 mb-4 px-4">Navigation</p>
-                
+                <p className="text-[15px] font-black uppercase tracking-[0.3em] text-neutral-200 mb-4 px-4">Navigation</p>
+
                 {navLinks.map((item, i) => (
                   <motion.div
                     key={item.name}
@@ -117,27 +115,20 @@ const Navbar = () => {
                     <Link
                       href={item.href}
                       onClick={() => setIsMobileMenuOpen(false)}
-                      className={`flex items-center gap-4 px-4 py-4 rounded-2xl transition-all duration-300 ${
-                        pathname === item.href 
-                        ? 'bg-pink-500/10 text-pink-500 border border-pink-500/20' 
-                        : 'text-white/70 hover:bg-white/5 hover:text-white'
-                      }`}
+                      className={`flex items-center gap-4 px-4 py-4 rounded-2xl transition-all duration-300 ${pathname === item.href
+                        ? 'bg-pink-500/10 text-pink-500 border border-pink-500/20'
+                        : 'text-white/70 hover:bg-white/5 hover:text-pink-500'
+                        }`}
                     >
-                      <span className={pathname === item.href ? 'text-pink-500' : 'text-white/30'}>
+                      <span className={pathname === item.href ? 'text-pink-500' : 'text-pink-500/60'}>
                         {item.icon}
                       </span>
-                      <span className="text-sm font-bold uppercase tracking-widest">{item.name}</span>
+                      <span className={`text-sm font-bold uppercase tracking-widest ${pathname === item.href ? 'text-pink-500' : 'text-white/70 group-hover:text-pink-500'}`}>{item.name}</span>
                     </Link>
                   </motion.div>
                 ))}
               </div>
 
-              {/* Bottom Decoration */}
-              <div className="absolute bottom-10 left-6 right-6 p-6 rounded-3xl bg-linear-to-br from-pink-500/10 to-purple-500/10 border border-white/5">
-                <p className="text-[10px] text-white/40 uppercase tracking-widest leading-relaxed">
-                  Join the community and track your favorite chronicles.
-                </p>
-              </div>
             </motion.div>
           </>
         )}

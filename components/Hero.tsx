@@ -82,10 +82,7 @@ export default function Hero() {
 
           <motion.button
             onClick={scrollToDiscover}
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0, duration: 0.4 }}
-            className="relative  mx-auto block text-white/30 hover:text-white/60 transition-colors cursor-pointer z-20"
+            className="relative mx-auto block text-white/30 hover:text-white/60 transition-colors cursor-pointer z-20"
           >
             <motion.div
               animate={{ y: [0, 8, 0] }}

@@ -34,10 +34,10 @@ export default function AnimeDetailPageClient({ anime, categories, characters, i
 
     // What to Expect Intelligence Panel - Deterministic Logic
     const getTone = () => {
-        const categoryTitles = (categories || []).map((cat: { attributes: { title: string } }) => 
+        const categoryTitles = (categories || []).map((cat: { attributes: { title: string } }) =>
             cat.attributes.title.toLowerCase()
         );
-        
+
         if (categoryTitles.some(t => ['horror', 'thriller', 'psychological'].includes(t))) return 'Dark & Intense';
         if (categoryTitles.some(t => ['comedy', 'slice of life'].includes(t))) return 'Light & Fun';
         if (categoryTitles.some(t => ['romance', 'shoujo', 'shoujo ai'].includes(t))) return 'Romantic & Emotional';
@@ -63,10 +63,10 @@ export default function AnimeDetailPageClient({ anime, categories, characters, i
 
     const getViewerSuitability = () => {
         const rating = ageRating || ageRatingGuide || '';
-        const categoryTitles = (categories || []).map((cat: { attributes: { title: string } }) => 
+        const categoryTitles = (categories || []).map((cat: { attributes: { title: string } }) =>
             cat.attributes.title.toLowerCase()
         );
-        
+
         if (rating === 'G' || rating.includes('G')) return 'All Ages';
         if (rating === 'PG' || rating.includes('PG')) {
             if (categoryTitles.some(t => ['violence', 'ecchi'].includes(t))) return 'Teen+';
@@ -247,56 +247,58 @@ export default function AnimeDetailPageClient({ anime, categories, characters, i
                     </div>
 
                     {/* CHARACTER DOSSIER SECTION */}
-                    <div className="mt-20 space-y-10">
-                        <div className="flex items-center justify-between">
-                            <div className="flex items-center gap-4">
-                                <Users className="text-pink-500 w-6 h-6" />
-                                <h3 className="text-3xl font-black text-white uppercase italic tracking-tighter">
-                                    Personnel <span className="text-pink-500">Archives</span>
-                                </h3>
+                    {allCharacters.length > 0 && (
+                        <div className="mt-20 space-y-10">
+                            <div className="flex items-center justify-between">
+                                <div className="flex items-center gap-4">
+                                    <Users className="text-pink-500 w-6 h-6" />
+                                    <h3 className="text-3xl font-black text-white uppercase italic tracking-tighter">
+                                        Personnel <span className="text-pink-500">Archives</span>
+                                    </h3>
+                                </div>
+
+                                {allCharacters.length > 4 && (
+                                    <button
+                                        onClick={() => setShowAllCharacters(!showAllCharacters)}
+                                        className="text-[10px] font-black uppercase tracking-widest text-slate-500 hover:text-pink-500 transition-colors border-b border-white/10 pb-1"
+                                    >
+                                        {showAllCharacters ? 'Collapse Records' : `View Full Roster (${allCharacters.length})`}
+                                    </button>
+                                )}
                             </div>
 
-                            {allCharacters.length > 4 && (
-                                <button
-                                    onClick={() => setShowAllCharacters(!showAllCharacters)}
-                                    className="text-[10px] font-black uppercase tracking-widest text-slate-500 hover:text-pink-500 transition-colors border-b border-white/10 pb-1"
-                                >
-                                    {showAllCharacters ? 'Collapse Records' : `View Full Roster (${allCharacters.length})`}
-                                </button>
-                            )}
-                        </div>
-
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                            {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-                            {displayedCharacters.map((item: { id: string; attributes: any; relationships?: any }) => {
-                                const charAttr = item.attributes;
-                                const charImg = item.relationships?.character?.attributes?.image?.original || charAttr?.image?.original;
-                                return (
-                                    <Link href={`/anime/${id}/character/${item.id}`} key={item.id} className="group">
-                                        <div className="relative overflow-hidden bg-[#030712]/80 backdrop-blur-xl rounded-2xl p-5 border border-white/5 hover:border-pink-500/50 transition-all duration-300">
-                                            <div className="flex items-center gap-5">
-                                                <div className="w-16 h-16 rounded-xl overflow-hidden flex-shrink-0 bg-slate-900 border border-white/10 group-hover:border-pink-500/50 transition-colors">
-                                                    {charImg ? (
-                                                        <Image src={charImg} alt={charAttr.name} width={64} height={64} className="object-cover w-full h-full" />
-                                                    ) : (
-                                                        <div className="w-full h-full flex items-center justify-center text-white/10"><User /></div>
-                                                    )}
-                                                </div>
-                                                <div className="min-w-0">
-                                                    <p className="text-sm font-black text-white group-hover:text-pink-400 transition-colors uppercase italic tracking-tight truncate">
-                                                        {charAttr.name}
-                                                    </p>
-                                                    <p className="text-[9px] text-slate-500 font-mono tracking-widest uppercase mt-1">
-                                                        Operative ID_{item.id}
-                                                    </p>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                                {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                                {displayedCharacters.map((item: { id: string; attributes: any; relationships?: any }) => {
+                                    const charAttr = item.attributes;
+                                    const charImg = item.relationships?.character?.attributes?.image?.original || charAttr?.image?.original;
+                                    return (
+                                        <Link href={`/anime/${id}/character/${item.id}`} key={item.id} className="group">
+                                            <div className="relative overflow-hidden bg-[#030712]/80 backdrop-blur-xl rounded-2xl p-5 border border-white/5 hover:border-pink-500/50 transition-all duration-300">
+                                                <div className="flex items-center gap-5">
+                                                    <div className="w-16 h-16 rounded-xl overflow-hidden flex-shrink-0 bg-slate-900 border border-white/10 group-hover:border-pink-500/50 transition-colors">
+                                                        {charImg ? (
+                                                            <Image src={charImg} alt={charAttr.name} width={64} height={64} className="object-cover w-full h-full" />
+                                                        ) : (
+                                                            <div className="w-full h-full flex items-center justify-center text-white/20"><User /></div>
+                                                        )}
+                                                    </div>
+                                                    <div className="min-w-0">
+                                                        <p className="text-sm font-black text-white group-hover:text-pink-400 transition-colors uppercase italic tracking-tight truncate">
+                                                            {charAttr.name}
+                                                        </p>
+                                                        <p className="text-[9px] text-slate-500 font-mono tracking-widest uppercase mt-1">
+                                                            Operative ID_{item.id}
+                                                        </p>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </Link>
-                                );
-                            })}
+                                        </Link>
+                                    );
+                                })}
+                            </div>
                         </div>
-                    </div>
+                    )}
 
                 </main>
             </div>
