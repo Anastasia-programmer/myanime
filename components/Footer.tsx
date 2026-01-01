@@ -22,7 +22,7 @@ const Footer = () => {
           <div className="flex items-center gap-8">
             <a
               href="https://www.linkedin.com/in/amedjkouh-darine-805188374/"
-              className="text-white/40 hover:text-[#FF0080] transition-all transform hover:scale-110"
+              className="text-white/60 hover:text-[#FF0080] transition-all transform hover:scale-110"
               aria-label="LinkedIn"
             >
               <Linkedin size={20} />
@@ -31,7 +31,7 @@ const Footer = () => {
 
           {/* Bottom Copyright */}
           <div className="flex flex-col items-center gap-2">
-            <p className="text-xs font-bold uppercase tracking-[0.3em] text-white/30">
+            <p className="text-xs font-bold uppercase tracking-[0.3em] text-white/60">
               © 2025 OTAKUMO — DESIGNED FOR ANIME FANS
             </p>
             <div className="h-px w-12 bg-linear-to-r from-transparent via-pink-500/50 to-transparent" />

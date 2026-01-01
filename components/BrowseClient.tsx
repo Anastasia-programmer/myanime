@@ -39,22 +39,22 @@ interface FilterSelectProps {
 // Helper for select dropdowns
 function FilterSelect({ label, value, onChange, options }: FilterSelectProps) {
     return (
-        <div className="flex flex-col gap-1.5">
-            <label className="text-[10px] uppercase font-bold text-white/60 tracking-wider pl-1">{label}</label>
+        <div className="flex flex-col gap-2 px-4">
+            <label className="text-[10px] uppercase font-black text-neutral-200 tracking-[0.2em] pl-1">{label}</label>
             <div className="relative group">
                 <select
                     value={value}
                     onChange={(e) => onChange(e.target.value)}
-                    className="w-full bg-white/5 border border-white/10 text-gray-200 text-sm rounded-xl px-4 py-3 appearance-none focus:outline-none focus:border-white/30 focus:bg-white/10 transition-all cursor-pointer backdrop-blur-md hover:border-white/20"
+                    className="w-full bg-white/5 border border-white/10 text-white/70 text-sm font-bold rounded-2xl px-4 py-4 appearance-none focus:outline-none focus:border-pink-500/50 focus:bg-pink-500/5 transition-all duration-300 cursor-pointer backdrop-blur-md hover:bg-white/10 hover:text-pink-400 group-hover:border-white/20"
                 >
-                    <option value="all" className="bg-[#111] text-gray-300">All</option>
+                    <option value="all" className="bg-[#030014] text-white/70">All</option>
                     {options.map((opt: string) => (
-                        <option key={opt} value={opt.toLowerCase() !== 'all' ? (opt.includes(' ') ? opt.replace(' ', '-').toLowerCase() : opt) : 'all'} className="bg-[#111] text-gray-300">
+                        <option key={opt} value={opt.toLowerCase() !== 'all' ? (opt.includes(' ') ? opt.replace(' ', '-').toLowerCase() : opt) : 'all'} className="bg-[#030014] text-white/70">
                             {opt.charAt(0).toUpperCase() + opt.slice(1)}
                         </option>
                     ))}
                 </select>
-                <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40 group-hover:text-white/80 transition-colors pointer-events-none" />
+                <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-pink-500/60 transition-colors pointer-events-none group-hover:text-pink-400" />
             </div>
         </div>
     );
@@ -116,7 +116,7 @@ export default function BrowseClient({ initialAnime }: BrowseClientProps) {
         return initialAnime.filter((anime: any) => {
             const rating = parseFloat(anime.attributes?.averageRating || '0') / 10;
             const userCount = anime.attributes?.userCount || 0;
-            
+
             // High rating (>= 7.5) and lower popularity (userCount < 10000)
             return rating >= 7.5 && userCount > 0 && userCount < 10000;
         });
@@ -148,15 +148,15 @@ export default function BrowseClient({ initialAnime }: BrowseClientProps) {
             </div>
 
             {/* Top Bar / Header for Browse - Mobile Toggle Only */}
-            <div className="md:hidden relative z-10 border-b border-white/5 bg-black/20 backdrop-blur-xl sticky top-0 transition-all duration-300">
+            <div className="lg:hidden relative z-10 border-b border-white/5 bg-black/20 backdrop-blur-xl sticky top-0 transition-all duration-300">
                 <div className="container mx-auto px-4 py-4 flex justify-between items-center">
                     <span className="text-white font-bold tracking-widest text-sm">FILTERS</span>
                     {/* Mobile Filter Toggle */}
                     <button
                         onClick={() => setIsDrawerOpen(!isDrawerOpen)}
-                        className="flex items-center gap-2 px-4 py-2 bg-white/5 hover:bg-white/10 rounded-xl border border-white/10 text-sm font-bold text-white transition-all backdrop-blur-md"
+                        className="flex items-center gap-2 px-4 py-2 bg-white/5 cursor-pointer hover:bg-white/10 rounded-xl border border-white/10 text-sm font-bold text-white transition-all backdrop-blur-md"
                     >
-                        <SlidersHorizontal className="w-4 h-4" />
+                        <SlidersHorizontal className="  w-4 h-4" />
                         Filters
                     </button>
                 </div>
@@ -175,7 +175,7 @@ export default function BrowseClient({ initialAnime }: BrowseClientProps) {
                             EXPLORE ANIME
                         </AuroraText>
                     </h1>
-                    <p className="text-white/40 font-medium mt-2 max-w-lg">
+                    <p className="text-slate-100 font-medium font-semibold mt-2 max-w-lg">
                         Dive into the infinite worlds of animation. Filter by season, genre, and more to find your next obsession.
                     </p>
                 </div>
@@ -187,7 +187,7 @@ export default function BrowseClient({ initialAnime }: BrowseClientProps) {
                         <div className="bg-white/[0.02] backdrop-blur-md border border-white/5 rounded-3xl p-6 shadow-2xl space-y-6">
                             <div className="flex items-center gap-2 text-white mb-6 pb-4 border-b border-white/5">
                                 <Filter className="w-5 h-5 text-pink-500" />
-                                <h2 className="text-lg font-bold uppercase tracking-widest">Filters</h2>
+                                <h2 className="text-lg font-bold uppercase tracking-widest ">Filters</h2>
                             </div>
 
                             <div className="space-y-5">
@@ -204,9 +204,9 @@ export default function BrowseClient({ initialAnime }: BrowseClientProps) {
                                     onClick={() => {
                                         setCategory('all'); setSeason('all'); setYear('all'); setSubtype('all'); setStatus('all'); setAgeRating('all'); setQuery('');
                                     }}
-                                    className="w-full py-3 rounded-xl text-xs font-bold uppercase tracking-widest text-white/40 hover:text-white hover:bg-white/10 transition-all flex items-center justify-center gap-2"
+                                    className="w-full cursor-pointer py-3 rounded-xl text-xs font-bold uppercase tracking-widest text-white/80 hover:text-white hover:bg-white/10 transition-all flex items-center justify-center gap-2"
                                 >
-                                    <X className="w-3 h-3" /> Clear All Filters
+                                    <X className="  w-3 h-3" /> Clear All Filters
                                 </button>
                             </div>
                         </div>
@@ -218,34 +218,37 @@ export default function BrowseClient({ initialAnime }: BrowseClientProps) {
                             <>
                                 <motion.div
                                     initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-                                    className="fixed inset-0 bg-black/60 z-40 md:hidden backdrop-blur-md"
+                                    className="fixed inset-0 bg-black/60 z-40 lg:hidden backdrop-blur-md"
                                     onClick={() => setIsDrawerOpen(false)}
                                 />
                                 <motion.div
                                     initial={{ x: '100%' }} animate={{ x: 0 }} exit={{ x: '100%' }} transition={{ type: "spring", damping: 25, stiffness: 200 }}
-                                    className="fixed right-0 top-0 bottom-0 w-80 bg-[#111] z-50 p-6 md:hidden overflow-y-auto border-l border-white/10 shadow-2xl"
+                                    className="fixed right-0 top-0 bottom-0 w-70 bg-[#030014] z-50 p-6 pt-24 lg:hidden overflow-y-auto border-l border-white/10 shadow-2xl custom-scrollbar"
                                 >
-                                    <div className="flex items-center justify-between mb-8 pb-4 border-b border-white/10">
-                                        <h2 className="text-xl font-black text-white uppercase tracking-widest">Filters</h2>
-                                        <button onClick={() => setIsDrawerOpen(false)} className="p-2 bg-white/5 rounded-full"><X className="w-5 h-5 text-white" /></button>
+                                    <div className="flex items-center justify-between mb-8 pb-4 border-b border-white/5 px-4">
+                                        <h2 className="text-[15px] font-black uppercase tracking-[0.3em] text-neutral-200">Filters</h2>
+                                        <button onClick={() => setIsDrawerOpen(false)} className="p-2 bg-white/5 hover:bg-white/10  rounded-xl border border-white/10 text-white transition-all active:scale-90"><X className='cursor-pointer' size={20} /></button>
                                     </div>
 
                                     <div className="space-y-6">
-                                        <div className="space-y-4">
-                                            <label className="text-xs font-bold text-white/50 uppercase tracking-widest pl-1">Sort By</label>
-                                            <select
-                                                value={sort}
-                                                onChange={(e) => setSort(e.target.value)}
-                                                className="w-full bg-white/5 border border-white/10 text-white text-sm rounded-xl px-4 py-3 appearance-none"
-                                            >
-                                                <option value="-userCount" className='bg-black'>Most Popular</option>
-                                                <option value="-averageRating" className='bg-black'>Highest Rated</option>
-                                                <option value="-startDate" className='bg-black'>Newest</option>
-                                                <option value="startDate" className='bg-black'>Oldest</option>
-                                            </select>
+                                        <div className="flex flex-col gap-2 px-4">
+                                            <label className="text-[10px] font-black text-neutral-200 uppercase tracking-[0.2em] pl-1">Sort By</label>
+                                            <div className="relative group">
+                                                <select
+                                                    value={sort}
+                                                    onChange={(e) => setSort(e.target.value)}
+                                                    className="w-full bg-white/5 border border-white/10 text-white/70 text-sm font-bold rounded-2xl px-4 py-4 appearance-none focus:outline-none focus:border-pink-500/50 focus:bg-pink-500/5 transition-all duration-300 cursor-pointer backdrop-blur-md hover:bg-white/10 hover:text-pink-400 group-hover:border-white/20"
+                                                >
+                                                    <option value="-userCount" className='bg-[#030014] text-white/70'>Most Popular</option>
+                                                    <option value="-averageRating" className='bg-[#030014] text-white/70'>Highest Rated</option>
+                                                    <option value="-startDate" className='bg-[#030014] text-white/70'>Newest</option>
+                                                    <option value="startDate" className='bg-[#030014] text-white/70'>Oldest</option>
+                                                </select>
+                                                <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-pink-500/60 transition-colors pointer-events-none group-hover:text-pink-400" />
+                                            </div>
                                         </div>
 
-                                        <div className="border-t border-white/10 my-4" />
+                                        <div className="mx-4 h-px bg-white/10" />
 
                                         <FilterSelect label="Category" value={category} onChange={setCategory} options={CATEGORIES} />
                                         <FilterSelect label="Season" value={season} onChange={setSeason} options={SEASONS} />
@@ -271,18 +274,18 @@ export default function BrowseClient({ initialAnime }: BrowseClientProps) {
                             {/* Top Row: Results, Search, Sort */}
                             <div className="flex flex-col md:flex-row items-center justify-between gap-4 bg-white/[0.02] border border-white/5 rounded-2xl p-4 backdrop-blur-sm">
                                 <div className="flex flex-col sm:flex-row items-center gap-4 w-full md:w-auto">
-                                    <div className="text-sm font-bold uppercase tracking-widest text-white/60 whitespace-nowrap self-start sm:self-auto">
+                                    <div className="text-sm font-bold uppercase tracking-widest text-white/70 whitespace-nowrap self-start sm:self-auto">
                                         <span className="text-white">{filteredAnime?.length || 0}</span> Results Found
                                     </div>
                                     <div className="h-4 w-px bg-white/10 hidden sm:block" />
                                     {/* Search Bar moved here */}
                                     <div className="relative w-full sm:w-64 group">
                                         <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                            <Search className="h-4 w-4 text-white/40 group-focus-within:text-pink-400 transition-colors" />
+                                            <Search className="h-4 w-4 text-white/80 group-focus-within:text-pink-400 transition-colors" />
                                         </div>
                                         <input
                                             type="text"
-                                            className="block w-full pl-9 pr-3 py-2 border border-white/10 rounded-xl leading-5 bg-white/5 text-white placeholder-white/30 focus:outline-none focus:bg-white/10 focus:border-white/30 text-sm transition-all"
+                                            className="block w-full pl-9 pr-3 py-2 border border-white/10 rounded-xl leading-5 bg-white/5 text-white placeholder-white/70 focus:outline-none focus:bg-white/10 focus:border-white/30 text-sm transition-all"
                                             placeholder="Search..."
                                             value={query}
                                             onChange={(e) => setQuery(e.target.value)}
@@ -292,7 +295,7 @@ export default function BrowseClient({ initialAnime }: BrowseClientProps) {
 
                                 {/* Desktop Sort moved here */}
                                 <div className="hidden md:flex items-center gap-3">
-                                    <span className="text-xs font-bold text-white/50 uppercase tracking-widest">Sort By</span>
+                                    <span className="text-xs font-bold text-white/70 uppercase tracking-widest">Sort By</span>
                                     <select
                                         value={sort}
                                         onChange={(e) => setSort(e.target.value)}
@@ -311,14 +314,14 @@ export default function BrowseClient({ initialAnime }: BrowseClientProps) {
                                 <button
                                     onClick={handleSurpriseMe}
                                     disabled={filteredAnime.length === 0}
-                                    className="flex items-center gap-2 px-6 py-2.5 bg-gradient-to-r from-pink-600 to-purple-700 hover:from-pink-500 hover:to-purple-600 text-white rounded-xl transition-all duration-300 shadow-[0_0_20px_rgba(236,72,153,0.2)] disabled:opacity-50 disabled:cursor-not-allowed font-bold text-sm uppercase tracking-widest"
+                                    className="flex items-center cursor-pointer gap-2 px-6 py-2.5 bg-gradient-to-r from-pink-600 to-purple-700 hover:from-pink-500 hover:to-purple-600 text-white rounded-xl transition-all duration-300 shadow-[0_0_20px_rgba(236,72,153,0.2)] disabled:opacity-50 disabled:cursor-not-allowed font-bold text-sm uppercase tracking-widest"
                                 >
                                     <Sparkles className="w-4 h-4" />
                                     Surprise Me
                                 </button>
-                                
+
                                 <div className="h-6 w-px bg-white/10" />
-                                
+
                                 <label className="flex items-center gap-3 cursor-pointer group">
                                     <div className="relative">
                                         <input
@@ -332,8 +335,8 @@ export default function BrowseClient({ initialAnime }: BrowseClientProps) {
                                         </div>
                                     </div>
                                     <div className="flex items-center gap-2">
-                                        <Gem className={`w-4 h-4 transition-colors ${hiddenGems ? 'text-yellow-400' : 'text-white/40'}`} />
-                                        <span className={`text-sm font-bold uppercase tracking-widest transition-colors ${hiddenGems ? 'text-yellow-400' : 'text-white/60'}`}>
+                                        <Gem className={`w-4 h-4 transition-colors ${hiddenGems ? 'text-yellow-400' : 'text-white/90'}`} />
+                                        <span className={`text-sm font-bold uppercase tracking-widest transition-colors ${hiddenGems ? 'text-yellow-400' : 'text-white/80'}`}>
                                             Hidden Gems
                                         </span>
                                     </div>

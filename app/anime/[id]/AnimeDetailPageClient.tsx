@@ -146,10 +146,10 @@ export default function AnimeDetailPageClient({ anime, categories, characters, i
                                 <div>
                                     <div className="flex items-center gap-3 mb-6">
                                         <Activity className="text-pink-500 w-4 h-4" />
-                                        <span className="text-blue-400 font-mono text-[10px] font-black uppercase tracking-[0.4em]">Verified Archive Entry</span>
+                                        <span className="text-blue-400 font-mono text-[10px] md:text-[12px] lg:text-[14px] font-black uppercase tracking-[0.4em]">Verified Archive Entry</span>
                                     </div>
 
-                                    <h1 className="text-5xl lg:text-7xl font-black text-white uppercase italic tracking-tighter leading-[0.85] mb-8">
+                                    <h1 className="text-5xl lg:text-7xl font-black text-white uppercase italic  leading-[0.85] mb-8">
                                         <AuroraText>{canonicalTitle}</AuroraText>
                                     </h1>
 
@@ -197,7 +197,7 @@ export default function AnimeDetailPageClient({ anime, categories, characters, i
                                         {synopsis && synopsis.length > 200 && (
                                             <button
                                                 onClick={() => setIsSynopsisExpanded(!isSynopsisExpanded)}
-                                                className="text-[10px] font-black uppercase tracking-widest text-pink-500 hover:text-white transition-colors border-b border-pink-500/20 pb-1"
+                                                className=" cursor-pointer text-[10px] font-black uppercase tracking-widest text-pink-500 hover:text-white transition-colors border-b border-pink-500/20 pb-1"
                                             >
                                                 {isSynopsisExpanded ? 'Read Less' : 'Read More'}
                                             </button>
@@ -214,21 +214,21 @@ export default function AnimeDetailPageClient({ anime, categories, characters, i
                                         <div className="bg-white/5 border border-white/10 rounded-xl p-4 hover:border-pink-500/50 transition-all">
                                             <div className="flex items-center gap-2 mb-2">
                                                 <TrendingUp className="w-4 h-4 text-pink-400" />
-                                                <span className="text-[9px] uppercase tracking-widest text-white/40 font-bold">Tone</span>
+                                                <span className="text-[9px] uppercase tracking-widest text-white/80 font-bold">Tone</span>
                                             </div>
                                             <p className="text-sm font-bold text-white">{tone}</p>
                                         </div>
                                         <div className="bg-white/5 border border-white/10 rounded-xl p-4 hover:border-blue-500/50 transition-all">
                                             <div className="flex items-center gap-2 mb-2">
                                                 <Zap className="w-4 h-4 text-blue-400" />
-                                                <span className="text-[9px] uppercase tracking-widest text-white/40 font-bold">Pacing</span>
+                                                <span className="text-[9px] uppercase tracking-widest text-white/80 font-bold">Pacing</span>
                                             </div>
                                             <p className="text-sm font-bold text-white">{pacing}</p>
                                         </div>
                                         <div className="bg-white/5 border border-white/10 rounded-xl p-4 hover:border-yellow-500/50 transition-all">
                                             <div className="flex items-center gap-2 mb-2">
                                                 <Clock className="w-4 h-4 text-yellow-400" />
-                                                <span className="text-[9px] uppercase tracking-widest text-white/40 font-bold">Commitment</span>
+                                                <span className="text-[9px] uppercase tracking-widest text-white/80 font-bold">Commitment</span>
                                             </div>
                                             <p className="text-sm font-bold text-white">{commitment.level}</p>
                                             <p className="text-[10px] text-white/50 mt-1">{commitment.hours}h total</p>
@@ -236,7 +236,7 @@ export default function AnimeDetailPageClient({ anime, categories, characters, i
                                         <div className="bg-white/5 border border-white/10 rounded-xl p-4 hover:border-green-500/50 transition-all">
                                             <div className="flex items-center gap-2 mb-2">
                                                 <Shield className="w-4 h-4 text-green-400" />
-                                                <span className="text-[9px] uppercase tracking-widest text-white/40 font-bold">Suitability</span>
+                                                <span className="text-[9px] uppercase tracking-widest text-white/80 font-bold">Suitability</span>
                                             </div>
                                             <p className="text-sm font-bold text-white">{suitability}</p>
                                         </div>

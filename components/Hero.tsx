@@ -17,7 +17,7 @@ export default function Hero() {
   };
 
   return (
-    <section className="mt-20 relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section className="mt-10 relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Content */}
       <div className="relative z-10 w-full max-w-7xl mx-auto px-6 text-center">
         <div className="space-y-6 md:space-y-10">
@@ -26,13 +26,13 @@ export default function Hero() {
           <div className="space-y-2">
             <div className="flex items-center justify-center gap-2 mb-4">
               <span className="h-[1px] w-8 bg-pink-500/50" />
-              <span className="text-pink-400 font-mono tracking-[0.4em] uppercase text-xs font-bold drop-shadow-lg">
+              <span className="text-pink-400 font-mono tracking-[0.4em] uppercase text-[clamp(0.6rem,0.8vw,0.8rem)] font-bold drop-shadow-lg">
                 Awaken your spirit...
               </span>
               <span className="h-[1px] w-8 bg-pink-500/50" />
             </div>
             <div className="space-y-4">
-              <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-black tracking-tight leading-none">
+              <h1 className="text-[clamp(2.5rem,10vw,8rem)] font-black tracking-tight leading-none">
                 <AuroraText
                   colors={['#FF0080', '#7928CA', '#0070F3', '#38bdf8', '#FF0080']}
                   speed={0.8}
@@ -53,7 +53,7 @@ export default function Hero() {
 
             {/* Subtitle */}
             <div className="pt-6">
-              <p className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-white font-black italic uppercase tracking-tight drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)]">
+              <p className="text-[clamp(1.25rem,4vw,3rem)] text-white font-black italic uppercase tracking-tight drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)]">
                 Where Every Story Becomes a Legend.
               </p>
             </div>
@@ -74,7 +74,7 @@ export default function Hero() {
                 background="rgba(236, 72, 153, 0.1)"
                 className="border border-pink-500/50 backdrop-blur-md hover:bg-pink-500/20 shadow-[0_0_20px_rgba(236,72,153,0.1)] text-lg"
               >
-                <Search className="mr-2 h-5 w-5 inline text-pink-400" />
+                <Search className="mr-2 h-4 w-4 inline text-pink-400" />
                 Start Exploring
               </StaticHeroButton>
             </Link>

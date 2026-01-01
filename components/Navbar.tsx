@@ -37,8 +37,8 @@ const Navbar = () => {
     <>
       <div
         className={`fixed top-0 left-0 right-0 z-60 transition-all duration-500 ${isScrolled
-          ? 'bg-[#030014]/80 backdrop-blur-xl border-b border-white/10 py-3'
-          : 'bg-transparent py-5'
+          ? 'bg-[#030014]/80 backdrop-blur-xl border-b border-white/10 py-[clamp(0.5rem,1.5vh,0.75rem)]'
+          : 'bg-transparent py-[clamp(0.75rem,2.5vh,1.25rem)]'
           }`}
       >
         <nav className="container mx-auto px-6 flex items-center justify-between">
@@ -46,9 +46,9 @@ const Navbar = () => {
           <Link href="/" className="group flex items-center gap-2 relative z-70">
             <div className="relative">
               <div className="absolute inset-0 bg-pink-500 blur-lg opacity-20 group-hover:opacity-40 transition-opacity" />
-              <Swords className="w-7 h-7 text-[#FF0080] relative z-10 fill-pink-500/20" />
+              <Swords className="w-[clamp(1.5rem,2.5vw,1.75rem)] h-[clamp(1.5rem,2.5vw,1.75rem)] text-[#FF0080] relative z-10 fill-pink-500/20" />
             </div>
-            <span className="text-xl font-black tracking-tighter text-white italic uppercase">
+            <span className="text-[clamp(1.1rem,2vw,1.25rem)] font-black tracking-tighter text-white italic uppercase">
               OTAKU<span className="text-[#FF0080]">MO</span>
             </span>
           </Link>
@@ -61,7 +61,7 @@ const Navbar = () => {
                 <Link
                   key={item.name}
                   href={item.href}
-                  className={`relative text-xs font-bold uppercase tracking-[0.2em] transition-colors group ${isActive ? 'text-white' : 'text-white/60 hover:text-white'
+                  className={`relative text-[clamp(0.65rem,1vw,0.75rem)] font-bold uppercase tracking-[0.2em] transition-colors group ${isActive ? 'text-white' : 'text-white/85 hover:text-white'
                     }`}
                 >
                   {item.name}
@@ -74,7 +74,7 @@ const Navbar = () => {
           {/* Mobile Menu Toggle */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="lg:hidden relative z-70 p-2 bg-white/5 hover:bg-white/10 rounded-xl border border-white/10 text-white transition-all active:scale-90"
+            className="lg:hidden relative z-70 p-2 cursor-pointer bg-white/5 hover:bg-white/10 rounded-xl border border-white/10 text-white transition-all active:scale-90"
           >
             {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
           </button>

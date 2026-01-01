@@ -85,8 +85,8 @@ export default function CharacterDetailClient({
 
             <div className="flex flex-col sm:flex-row gap-12 relative z-10">
 
-              {/* LEFT: CHARACTER IMAGE - Fixed size across viewports */}
-              <div className="w-70 sm:w-87.5 mx-auto lg:mx-0 shrink-0">
+              {/* LEFT: CHARACTER IMAGE - Responsive size across viewports */}
+              <div className="w-full sm:w-87.5 max-w-[400px] mx-auto lg:mx-0 shrink-0">
                 <div className="top-28">
                   <div className="relative aspect-3/4 rounded-3xl overflow-hidden shadow-2xl border border-white/10 bg-slate-900 group">
                     <div className="absolute -inset-1 bg-linear-to-tr from-pink-600 to-purple-600 opacity-0 group-hover:opacity-20 blur-xl transition-all duration-700" />
@@ -124,7 +124,7 @@ export default function CharacterDetailClient({
                     <span className="text-blue-400 font-mono text-[10px] font-black uppercase tracking-[0.4em]">Verified Personnel Record</span>
                   </div>
 
-                  <h1 className="text-5xl lg:text-6xl font-black text-white uppercase italic tracking-tighter leading-[0.85]">
+                  <h1 className="text-[clamp(2.5rem,8vw,4rem)] lg:text-6xl font-black text-white uppercase italic tracking-tighter leading-[0.85]">
                     <AuroraText colors={['#FF0080', '#7928CA', '#38bdf8', '#FF0080']}>{characterName}</AuroraText>
                   </h1>
                 </div>

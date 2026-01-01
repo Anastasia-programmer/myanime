@@ -86,10 +86,7 @@ export default async function Home() {
         {/* Content */}
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="relative mb-20">
-            {/* Decorative Background Element (Subtle "Archives" text) */}
-            <span className="absolute -top-10 left-1/2 -translate-x-1/2 text-5xl sm:text-8xl font-black text-white/2 select-none tracking-tighter italic uppercase pointer-events-none whitespace-nowrap">
-              Database Mainframe
-            </span>
+        
 
             <div className="relative z-10 text-center space-y-4">
               {/* Main Title - Simplified */}
