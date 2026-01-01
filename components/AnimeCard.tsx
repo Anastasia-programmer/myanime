@@ -3,18 +3,7 @@ import Link from 'next/link';
 import { Star, Tv, Layers } from 'lucide-react';
 import { Badge } from "@/components/ui/badge";
 
-interface Anime {
-  id: string;
-  attributes: {
-    canonicalTitle: string;
-    posterImage?: {
-      large?: string;
-    };
-    averageRating?: string;
-    episodeCount?: number;
-    showType?: string;
-  };
-}
+import { Anime } from '@/lib/kitsu';
 
 interface AnimeCardProps {
   anime: Anime;
@@ -69,12 +58,10 @@ export default function AnimeCard({ anime }: AnimeCardProps) {
           <div className="flex items-center gap-4 text-white/60">
 
             {/* Rating */}
-            {averageRating && (
-              <div className="flex items-center gap-1.5">
-                <Star className="w-3.5 h-3.5 text-yellow-400 fill-yellow-400 drop-shadow-[0_0_5px_rgba(250,204,21,0.5)]" />
-                <span className="text-xs font-bold text-white/90">{averageRating}%</span>
-              </div>
-            )}
+            <div className="flex items-center gap-1.5">
+              <Star className="w-3.5 h-3.5 text-yellow-400 fill-yellow-400 drop-shadow-[0_0_5px_rgba(250,204,21,0.5)]" />
+              <span className="text-xs font-bold text-white/90">{averageRating || "0"}%</span>
+            </div>
 
             {/* Divider */}
             <div className="w-1 h-1 rounded-full bg-white/20" />

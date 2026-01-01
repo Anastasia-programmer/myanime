@@ -3,7 +3,6 @@
 import Link from 'next/link';
 import { StaticHeroButton } from './ui/StaticHeroButton';
 import { Search, ChevronDown } from 'lucide-react';
-import { motion } from 'motion/react';
 import { AuroraText } from './ui/aurora-text';
 
 export default function Hero() {
@@ -75,26 +74,22 @@ export default function Hero() {
                 className="border border-pink-500/50 backdrop-blur-md hover:bg-pink-500/20 shadow-[0_0_20px_rgba(236,72,153,0.1)] text-lg"
               >
                 <Search className="mr-2 h-4 w-4 inline text-pink-400" />
-                Start Exploring
+                Find Ur Anime
               </StaticHeroButton>
             </Link>
           </div>
 
-          <motion.button
-            onClick={scrollToDiscover}
-            className="relative mx-auto block text-white/30 hover:text-white/60 transition-colors cursor-pointer z-20"
-          >
-            <motion.div
-              animate={{ y: [0, 8, 0] }}
-              transition={{
-                repeat: Infinity,
-                duration: 2,
-                ease: "easeInOut"
-              }}
-            >
-              <ChevronDown className="w-10 h-10" />
-            </motion.div>
-          </motion.button>
+      
+            <div onClick={scrollToDiscover} className=" mt-8 mb-0 cursor-pointer flex text-amber-50 flex-col items-center gap-2">
+              <span className="text-[10px] font-black uppercase tracking-[0.5em] italic drop-shadow-sm group-hover:text-pink-400/80 transition-colors">
+                Or Scroll And Discover
+              </span>
+              <div className="relative flex items-center justify-center">
+                <div className="absolute inset-0 bg-pink-500/20 blur-md rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <ChevronDown className="relative w-8 h-8 md:w-10 md:h-10 text-white/40 group-hover:text-pink-500/80 transition-all duration-500" />
+              </div>
+            </div>
+         
         </div>
       </div>
     </section>

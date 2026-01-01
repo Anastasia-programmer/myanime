@@ -19,7 +19,7 @@ export type Anime = {
     attributes: {
         canonicalTitle: string;
         synopsis: string;
-        averageRating: string;
+        averageRating?: string;
         userCount: number;
         posterImage: {
             tiny: string;
@@ -35,6 +35,7 @@ export type Anime = {
             [key: string]: string;
         };
         youtubeVideoId: string;
+        showType?: string;
         ageRating: string;
         ageRatingGuide: string;
         startDate: string;

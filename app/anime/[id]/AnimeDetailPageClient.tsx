@@ -94,7 +94,7 @@ export default function AnimeDetailPageClient({ anime, categories, characters, i
                     className="object-cover opacity-40"
                     priority
                 />
-                <div className="absolute inset-0 bg-gradient-to-b from-[#020617]/60 via-[#020617]/90 to-[#020617]" />
+                <div className="absolute inset-0 bg-gradient-to-b from-[#020617]/40 via-[#020617]/70 to-[#020617]" />
                 {/* Subtle Grid Overlay */}
                 <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-[size:40px_40px]" />
             </div>

@@ -1,18 +1,6 @@
 import AnimeCard from '@/components/AnimeCard';
 import { Search } from "lucide-react"
-
-interface Anime {
-  id: string;
-  attributes: {
-    canonicalTitle: string;
-    posterImage?: {
-      large?: string;
-    };
-    averageRating?: string;
-    episodeCount?: number;
-    showType?: string;
-  };
-}
+import { Anime } from '@/lib/kitsu';
 
 interface AnimeGridProps {
   animeList: Anime[];

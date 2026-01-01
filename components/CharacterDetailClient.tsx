@@ -46,7 +46,7 @@ export default function CharacterDetailClient({
   const hasAnyStats = hasPersonal || hasProfessional || hasOther;
 
   return (
-    <div className="relative min-h-screen bg-[#020617] text-slate-200 selection:bg-pink-500/30 overflow-x-hidden font-sans">
+    <div className="pt-10 relative min-h-screen bg-[#020617] text-slate-200 selection:bg-pink-500/30 overflow-x-hidden font-sans">
 
       {/* 1. Global Background Layer */}
       <div className="fixed inset-0 z-0">
@@ -57,16 +57,16 @@ export default function CharacterDetailClient({
           className="object-cover opacity-40"
           priority
         />
-        <div className="absolute inset-0 bg-linear-to-b from-[#020617]/60 via-[#020617]/90 to-[#020617]" />
+        <div className="absolute inset-0 bg-linear-to-b from-[#020617]/40 via-[#020617]/70 to-[#020617]" />
         {/* Subtle Grid Overlay */}
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-size[40px_40px]" />
       </div>
 
-      <div className="relative z-10 pt-28 pb-20">
-        <main className="container mx-auto px-6 lg:px-12">
+      <div className="relative z-10 pt-16 md:pt-28 pb-20">
+        <main className="container mx-auto px-4 sm:px-6 lg:px-12">
 
           {/* Breadcrumbs / Return Link */}
-          <nav className="mb-10">
+          <nav className="mb-10 cursor-pointer">
             <Link
               href={`/anime/${animeId}`}
               className="group inline-flex items-center gap-3 text-slate-400 hover:text-white transition-all duration-300"
@@ -83,10 +83,10 @@ export default function CharacterDetailClient({
             {/* Decorative Background Text */}
 
 
-            <div className="flex flex-col sm:flex-row gap-12 relative z-10">
+            <div className="flex flex-col md:flex-row gap-12 relative z-10">
 
               {/* LEFT: CHARACTER IMAGE - Responsive size across viewports */}
-              <div className="w-full sm:w-87.5 max-w-[400px] mx-auto lg:mx-0 shrink-0">
+              <div className="w-full md:w-87.5 max-w-[400px] mx-auto md:mx-0 shrink-0">
                 <div className="top-28">
                   <div className="relative aspect-3/4 rounded-3xl overflow-hidden shadow-2xl border border-white/10 bg-slate-900 group">
                     <div className="absolute -inset-1 bg-linear-to-tr from-pink-600 to-purple-600 opacity-0 group-hover:opacity-20 blur-xl transition-all duration-700" />
@@ -135,12 +135,12 @@ export default function CharacterDetailClient({
                     <Tabs defaultValue={defaultTab} className="w-full">
                       <TabsList className="bg-white/5 border border-white/10 p-1 mb-8 rounded-2xl h-auto flex flex-wrap gap-1">
                         {hasPersonal && (
-                          <TabsTrigger value="personal" className="flex-1 data-[state=active]:bg-gradient-to-r data-[state=active]:from-pink-600 data-[state=active]:to-purple-600 data-[state=active]:text-white tracking-[0.2em] uppercase text-[9px] font-black py-3 rounded-xl transition-all duration-300">
+                          <TabsTrigger value="personal" className="flex-1 cursor-pointer data-[state=active]:bg-gradient-to-r data-[state=active]:from-pink-600 data-[state=active]:to-purple-600 text-white tracking-[0.2em] uppercase text-[9px] font-black py-3 rounded-xl transition-all duration-300">
                             Personal
                           </TabsTrigger>
                         )}
                         {hasProfessional && (
-                          <TabsTrigger value="professional" className="flex-1 data-[state=active]:bg-gradient-to-r data-[state=active]:from-pink-600 data-[state=active]:to-purple-600 data-[state=active]:text-white tracking-[0.2em] uppercase text-[9px] font-black py-3 rounded-xl transition-all duration-300">
+                          <TabsTrigger value="professional" className="flex-1 cursor-pointer data-[state=active]:bg-gradient-to-r data-[state=active]:from-pink-600 data-[state=active]:to-purple-600 text-white tracking-[0.2em] uppercase text-[9px] font-black py-3 rounded-xl transition-all duration-300">
                             Professional
                           </TabsTrigger>
                         )}
@@ -180,7 +180,7 @@ export default function CharacterDetailClient({
 
                 {/* BIO SECTION */}
                 <div className="relative pt-8 border-t border-white/5">
-                  <h3 className="text-[10px] font-black uppercase tracking-[0.4em] text-pink-500/60 mb-6 flex items-center gap-3">
+                  <h3 className="text-[10px] font-black uppercase tracking-[0.4em] text-pink-500/100 mb-6 flex items-center gap-3">
                     <Info className="w-4 h-4" /> Intelligence Summary
                   </h3>
 
@@ -192,7 +192,7 @@ export default function CharacterDetailClient({
                     {bio && bio.length > 200 && (
                       <button
                         onClick={() => setIsBioExpanded(!isBioExpanded)}
-                        className="mt-6 text-[10px] font-black uppercase tracking-widest text-pink-500 hover:text-white transition-colors border-b border-pink-500/20 pb-1"
+                        className="mt-6 cursor-pointer text-[10px] font-black uppercase tracking-widest text-pink-500 hover:text-white transition-colors border-b border-pink-500/20 pb-1"
                       >
                         {isBioExpanded ? 'Collapse Archive' : 'Read Full History'}
                       </button>

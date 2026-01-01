@@ -73,9 +73,9 @@ export default async function Home() {
           quality={90}
         />
         {/* Gradient Overlay */}
-        <div className="absolute inset-0 bg-black/30 z-0 pointer-events-none" />
+        <div className="absolute inset-0 bg-black/20 z-0 pointer-events-none" />
 
-        <div className="absolute inset-0 bg-linear-to-b from-black/10 via-black/30 to-black/40" />
+        <div className="absolute inset-0 bg-linear-to-b from-black/5 via-black/20 to-black/30" />
       </div>
 
       {/* Hero Section */}
@@ -86,7 +86,7 @@ export default async function Home() {
         {/* Content */}
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="relative mb-20">
-        
+
 
             <div className="relative z-10 text-center space-y-4">
               {/* Main Title - Simplified */}
