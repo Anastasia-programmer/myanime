@@ -32,7 +32,7 @@ export default function Hero() {
               <span className="h-[1px] w-8 bg-pink-500/50" />
             </div>
             <div className="space-y-4">
-              <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-black tracking-tight leading-none">
+              <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-black tracking-tight leading-none">
                 <AuroraText
                   colors={['#FF0080', '#7928CA', '#0070F3', '#38bdf8', '#FF0080']}
                   speed={0.8}

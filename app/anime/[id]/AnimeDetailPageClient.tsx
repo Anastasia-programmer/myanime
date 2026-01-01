@@ -107,12 +107,12 @@ export default function AnimeDetailPageClient({ anime, categories, characters, i
                         {/* Decorative Background Text */}
 
 
-                        <div className="flex flex-col sm:flex-row gap-12 relative z-10">
+                        <div className="flex flex-col lg:flex-row gap-12 relative z-10">
 
                             {/* LEFT: POSTER & ACTIONS */}
-                            <div className="lg:w-[350px] flex-shrink-0">
+                            <div className="w-full max-w-[350px] mx-auto  flex-shrink-0">
                                 <div className="relative aspect-[2/3] rounded-3xl overflow-hidden shadow-2xl border border-white/10">
-                                    <Image src={posterImage?.large} alt={canonicalTitle} fill className="object-cover w-3/4" priority />
+                                    <Image src={posterImage?.large} alt={canonicalTitle} fill className="object-cover" priority />
                                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
 
                                     {/* Japanese Title Overlay */}
@@ -177,7 +177,7 @@ export default function AnimeDetailPageClient({ anime, categories, characters, i
                                 {categories?.length > 0 && (
                                     <div className="flex flex-wrap gap-2">
                                         {categories.slice(0, 6).map((cat: { id: string; attributes: { title: string } }) => (
-                                            <span key={cat.id} className="text-[9px] font-black uppercase tracking-widest px-3 py-1.5 bg-white/[0.03] border border-white/10 rounded-lg text-slate-400 hover:text-pink-400 transition-colors">
+                                            <span key={cat.id} className="text-[9px] font-black uppercase tracking-widest px-3 py-1.5 bg-white/[0.03] border border-white/10 rounded-lg text-slate-200 hover:text-pink-400 transition-colors">
                                                 {cat.attributes.title}
                                             </span>
                                         ))}
@@ -187,7 +187,7 @@ export default function AnimeDetailPageClient({ anime, categories, characters, i
                                 {/* Synopsis - Optimized for readability */}
                                 <div className="relative pt-6">
                                     <div className="absolute -left-6 top-6 bottom-0 w-[2px] bg-gradient-to-b from-pink-500/50 to-transparent" />
-                                    <h3 className="text-[10px] font-black uppercase tracking-[0.4em] text-white/30 mb-4 flex items-center gap-3">
+                                    <h3 className="text-[10px] font-black uppercase tracking-[0.4em] text-slate-300 mb-4 flex items-center gap-3">
                                         <Info size={12} /> Intelligence Summary
                                     </h3>
                                     <div className="space-y-4">
@@ -207,7 +207,7 @@ export default function AnimeDetailPageClient({ anime, categories, characters, i
 
                                 {/* What to Expect Intelligence Panel */}
                                 <div className="relative pt-8 mt-8 border-t border-white/10">
-                                    <h3 className="text-[10px] font-black uppercase tracking-[0.4em] text-white/30 mb-6 flex items-center gap-3">
+                                    <h3 className="text-[10px] font-black uppercase tracking-[0.4em] text-slate-300 mb-6 flex items-center gap-3">
                                         <Sparkles size={12} /> What to Expect
                                     </h3>
                                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -249,8 +249,8 @@ export default function AnimeDetailPageClient({ anime, categories, characters, i
                     {/* CHARACTER DOSSIER SECTION */}
                     {allCharacters.length > 0 && (
                         <div className="mt-20 space-y-10">
-                            <div className="flex items-center justify-between">
-                                <div className="flex items-center gap-4">
+                            <div className="flex flex-col items-start mb-5 justify-between">
+                                <div className="flex  items-center gap-4 mb-5">
                                     <Users className="text-pink-500 w-6 h-6" />
                                     <h3 className="text-3xl font-black text-white uppercase italic tracking-tighter">
                                         Personnel <span className="text-pink-500">Archives</span>
@@ -260,7 +260,7 @@ export default function AnimeDetailPageClient({ anime, categories, characters, i
                                 {allCharacters.length > 4 && (
                                     <button
                                         onClick={() => setShowAllCharacters(!showAllCharacters)}
-                                        className="text-[10px] font-black uppercase tracking-widest text-slate-500 hover:text-pink-500 transition-colors border-b border-white/10 pb-1"
+                                        className="ml-10 text-[10px] cursor-pointer font-black  uppercase tracking-widest text-slate-300 hover:text-pink-500 transition-colors border-b border-white/10 pb-1"
                                     >
                                         {showAllCharacters ? 'Collapse Records' : `View Full Roster (${allCharacters.length})`}
                                     </button>
@@ -268,7 +268,6 @@ export default function AnimeDetailPageClient({ anime, categories, characters, i
                             </div>
 
                             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                                {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
                                 {displayedCharacters.map((item: { id: string; attributes: any; relationships?: any }) => {
                                     const charAttr = item.attributes;
                                     const charImg = item.relationships?.character?.attributes?.image?.original || charAttr?.image?.original;

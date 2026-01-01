@@ -60,7 +60,7 @@ export default async function Home() {
   }).filter((cat): cat is { title: string; data: any[] } => cat !== null && cat.data.length > 0);
 
   return (
-    <div className="relative min-h-screen">
+    <div className="relative min-h-screen overflow-x-hidden">
 
       {/* Background Image for entire page */}
       <div className="fixed inset-0 z-0">
@@ -87,13 +87,13 @@ export default async function Home() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="relative mb-20">
             {/* Decorative Background Element (Subtle "Archives" text) */}
-            <span className="absolute -top-10 left-1/2 -translate-x-1/2 text-8xl font-black text-white/2 select-none tracking-tighter italic uppercase pointer-events-none whitespace-nowrap">
+            <span className="absolute -top-10 left-1/2 -translate-x-1/2 text-5xl sm:text-8xl font-black text-white/2 select-none tracking-tighter italic uppercase pointer-events-none whitespace-nowrap">
               Database Mainframe
             </span>
 
             <div className="relative z-10 text-center space-y-4">
               {/* Main Title - Simplified */}
-              <h2 className="text-5xl md:text-7xl font-black text-white uppercase italic tracking-tighter leading-none drop-shadow-lg">
+              <h2 className="text-4xl sm:text-5xl md:text-7xl font-black text-white uppercase italic tracking-tighter leading-none drop-shadow-lg">
                 Your Anime Encyclopedia
               </h2>
 
