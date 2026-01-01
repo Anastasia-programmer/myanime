@@ -3,16 +3,16 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { Anime, Category, AnimeCharacter } from '@/lib/kitsu';
 import { AuroraText } from '@/components/ui/aurora-text';
 import { Play, Star, User, Activity, Clock, Layers, Info, Users, Sparkles, TrendingUp, Shield, Zap } from 'lucide-react';
 
 interface AnimeDetailPageClientProps {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    anime: any;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    categories: any;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    characters: any;
+    anime: Anime;
+    categories: Category[];
+    characters: {
+        included?: AnimeCharacter[];
+    };
     id: string;
 }
 
@@ -268,7 +268,7 @@ export default function AnimeDetailPageClient({ anime, categories, characters, i
                             </div>
 
                             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                                {displayedCharacters.map((item: { id: string; attributes: any; relationships?: any }) => {
+                                {displayedCharacters.map((item: { id: string; attributes: { name: string; image?: { original: string } }; relationships?: { character?: { attributes?: { image?: { original: string } } } } }) => {
                                     const charAttr = item.attributes;
                                     const charImg = item.relationships?.character?.attributes?.image?.original || charAttr?.image?.original;
                                     return (

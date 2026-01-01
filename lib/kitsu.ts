@@ -1,6 +1,6 @@
 const BASE_URL = 'https://kitsu.io/api/edge';
 
-type AnimeFilters = {
+export type AnimeFilters = {
     query?: string;
     category?: string;
     status?: string;
@@ -11,6 +11,75 @@ type AnimeFilters = {
     subtype?: string;
     ageRating?: string;
     offset?: number;
+};
+
+export type Anime = {
+    id: string;
+    type: string;
+    attributes: {
+        canonicalTitle: string;
+        synopsis: string;
+        averageRating: string;
+        userCount: number;
+        posterImage: {
+            tiny: string;
+            small: string;
+            medium: string;
+            large: string;
+            original: string;
+        };
+        status: string;
+        episodeCount: number;
+        episodeLength: number;
+        titles: {
+            [key: string]: string;
+        };
+        youtubeVideoId: string;
+        ageRating: string;
+        ageRatingGuide: string;
+        startDate: string;
+    };
+    relationships?: {
+        [key: string]: unknown;
+    };
+};
+
+export type Category = {
+    id: string;
+    attributes: {
+        title: string;
+    };
+};
+
+export type AnimeCharacter = {
+    id: string;
+    type: string;
+    attributes: {
+        name: string;
+        image?: {
+            original: string;
+        };
+    };
+    relationships?: {
+        character?: {
+            data?: {
+                id: string;
+                type: string;
+            };
+            attributes?: {
+                image?: {
+                    original: string;
+                };
+            };
+        };
+    };
+};
+
+export type KitsuResponse<T> = {
+    data: T;
+    included?: unknown[];
+    meta?: unknown;
+    links?: unknown;
 };
 
 // Helper function to create timeout signal

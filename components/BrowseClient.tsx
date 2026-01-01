@@ -24,9 +24,10 @@ const STATUSES = ["current", "finished", "upcoming", "tba", "unreleased"];
 const currentYear = new Date().getFullYear();
 const YEARS = Array.from({ length: 30 }, (_, i) => String(currentYear - i));
 
+import { Anime } from '@/lib/kitsu';
+
 interface BrowseClientProps {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    initialAnime: any[];
+    initialAnime: Anime[];
 }
 
 interface FilterSelectProps {
@@ -113,7 +114,7 @@ export default function BrowseClient({ initialAnime }: BrowseClientProps) {
     const filteredAnime = useMemo(() => {
         if (!hiddenGems) return initialAnime;
 
-        return initialAnime.filter((anime: any) => {
+        return initialAnime.filter((anime: Anime) => {
             const rating = parseFloat(anime.attributes?.averageRating || '0') / 10;
             const userCount = anime.attributes?.userCount || 0;
 
