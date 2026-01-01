@@ -84,21 +84,6 @@ export default function AnimeDetailPageClient({ anime, categories, characters, i
 
     return (
         <div className="relative min-h-screen bg-[#020617] text-slate-200 overflow-x-hidden font-sans">
-
-            {/* 1. Global Background Layer - Darkened for Readability */}
-            <div className="fixed inset-0 z-0">
-                <Image
-                    src="/cv7.jpg"
-                    alt="Background"
-                    fill
-                    className="object-cover opacity-40"
-                    priority
-                />
-                <div className="absolute inset-0 bg-gradient-to-b from-[#020617]/40 via-[#020617]/70 to-[#020617]" />
-                {/* Subtle Grid Overlay */}
-                <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-[size:40px_40px]" />
-            </div>
-
             <div className="relative z-10 pt-28 pb-20">
                 <main className="container mx-auto px-6 lg:px-12">
 

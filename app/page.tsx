@@ -1,6 +1,5 @@
 import { getAnimeList } from '@/lib/kitsu';
 import Hero from '@/components/Hero';
-import Image from 'next/image';
 import CategoryRow from '@/components/CategoryRow';
 
 // Force dynamic rendering since we might want fresh data, though Kitsu API is cached
@@ -61,23 +60,6 @@ export default async function Home() {
 
   return (
     <div className="relative min-h-screen overflow-x-hidden">
-
-      {/* Background Image for entire page */}
-      <div className="fixed inset-0 z-0">
-        <Image
-          src="/cv7.jpg"
-          alt="Anime Discovery Background"
-          fill
-          className="object-cover"
-          priority
-          quality={90}
-        />
-        {/* Gradient Overlay */}
-        <div className="absolute inset-0 bg-black/20 z-0 pointer-events-none" />
-
-        <div className="absolute inset-0 bg-linear-to-b from-black/5 via-black/20 to-black/30" />
-      </div>
-
       {/* Hero Section */}
       <Hero />
 

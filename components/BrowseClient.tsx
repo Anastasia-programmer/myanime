@@ -5,7 +5,6 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { Search, Filter, X, ChevronDown, SlidersHorizontal, Sparkles, Gem } from 'lucide-react';
 import AnimeGrid from './AnimeGrid';
 import { motion, AnimatePresence } from 'framer-motion';
-import Image from 'next/image';
 import { AuroraText } from '@/components/ui/aurora-text';
 
 // Mock data for dropdowns
@@ -133,21 +132,6 @@ export default function BrowseClient({ initialAnime }: BrowseClientProps) {
 
     return (
         <div className="mt-20 relative min-h-screen font-sans overflow-x-hidden selection:bg-pink-500/30">
-
-            {/* --- BACKGROUND LAYERS --- */}
-            <div className="fixed inset-0 z-0">
-                <Image
-                    src="/cv7.jpg"
-                    alt="Background"
-                    fill
-                    className="object-cover"
-                    priority
-                    quality={90}
-                />
-                <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-[#050505]/80 to-[#050505]/95" />
-                <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:60px_60px] opacity-20"></div>
-            </div>
-
             {/* Top Bar / Header for Browse - Mobile Toggle Only */}
             <div className="lg:hidden relative z-10 border-b border-white/5 bg-black/20 backdrop-blur-xl sticky top-0 transition-all duration-300">
                 <div className="container mx-auto px-4 py-4 flex justify-between items-center">
